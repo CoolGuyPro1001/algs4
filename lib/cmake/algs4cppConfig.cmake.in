@@ -1,0 +1,3 @@
+if(NOT TARGET algs4pp::algs4cpp)
+    include("${CMAKE_CURRENT_LIST_DIR}/algs4cppTargets.cmake")
+endif()
