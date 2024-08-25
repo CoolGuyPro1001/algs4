@@ -6,7 +6,7 @@
  *
  * @param args the command-line arguments
  */
-int main(int argc, char** argv)
+int Misc_TestStdRandom(int argc, char** argv)
 {
     if (argc != 3) return -1;
 
@@ -31,4 +31,6 @@ int main(int argc, char** argv)
             StdOut::print(*it);
         StdOut::println();
     }
+
+    return 0;
 }

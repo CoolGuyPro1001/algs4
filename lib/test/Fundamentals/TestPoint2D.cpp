@@ -7,8 +7,10 @@
  *
  * @param args the command-line arguments
 */ 
-int main(int argc, char** argv) 
+int Fundamentals_TestPoint2D(int argc, char** argv) 
 {
+    if (argc != 3) return -1;
+    
     int x0 = atoi(argv[0]);
     int y0 = atoi(argv[1]);
     int n = atoi(argv[2]);

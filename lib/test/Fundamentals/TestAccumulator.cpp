@@ -11,8 +11,9 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestAccumulator(int argc, char** argv)
 {
+    std::cin.clear();
     Accumulator stats = Accumulator();
     while (!StdIn::is_empty())
     {
@@ -25,4 +26,6 @@ int main()
     StdOut::printf("stddev = %.5f\n", stats.stddev());
     StdOut::printf("var    = %.5f\n", stats.var());
     StdOut::println(stats);
+
+    return 0;
 }

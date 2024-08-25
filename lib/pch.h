@@ -20,6 +20,12 @@
 #include <initializer_list>
 #include <functional>
 #include <cstdarg>
+#include <ctime>
+#include <format>
+#include <cstdint>
+#include <thread>
+
+//#include <wx/wx.h>
 
 #define cmp_func bool(*cmp)(T, T)
 

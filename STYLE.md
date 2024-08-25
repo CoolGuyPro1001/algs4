@@ -45,6 +45,7 @@ Allman Style
 * toString() -> Implement to_string() and operator<<() functions
 * Arrays.sort() -> std::sort()
 * String splitting -> Use strtok()
+* byte -> uint8_t
 
 ## Other
 * If possible use smart pointers

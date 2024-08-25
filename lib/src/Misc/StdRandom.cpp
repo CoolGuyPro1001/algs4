@@ -75,8 +75,8 @@ long StdRandom::uniform_long(long n)
 }
 
 ///////////////////////////////////////////////////////////////////////////
-//  METHODS BELOW RELY ON JAVA.UTIL.RANDOM ONLY INDIRECTLY VIA
-//  THE METHODS ABOVE.
+//  METHODS BELOW RELY ON STD::RANDOM ONLY INDIRECTL
+//   HE METHODS ABOVE.
 ///////////////////////////////////////////////////////////////////////////
 
 int StdRandom::uniform_int(int a, int b)

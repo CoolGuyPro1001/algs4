@@ -1,5 +1,7 @@
 # Algorithms 4th Edition in C++
 
+algs4.jar ported to C++.
+
 The original Algorithm, 4th Edition is by Robert Sedgewick and Kevin Wayne
 and is provided for free by Princeton University under the GNU General Public License.
 
@@ -10,6 +12,10 @@ Algorithms Home Page: http://algs4.cs.princeton.edu
 Source Code: https://algs4.cs.princeton.edu/code/
 
 algs4.jar Download: https://algs4.cs.princeton.edu/code/algs4.jar
+
+## Progress
+* 26/201 programs implemented (with or without main unit test)
+* 13% complete
 
 ## Using algs4cpp
 ### Requirements

@@ -8,7 +8,7 @@
     *
     * @param args the command-line arguments
 */
-int main(int argc, char** argv)
+int Fundamentals_TestCounter(int argc, char** argv)
 {
     if (argc < 3)
         return 0;
@@ -35,4 +35,6 @@ int main(int argc, char** argv)
     {
         StdOut::println(hits[i]);
     }
+
+    return 0;
 }

@@ -8,10 +8,10 @@
  *
  * @param args the command-line arguments
  */
-int main(int argc, char** argv)
+int Fundamentals_TestInterval2D(int argc, char** argv)
 {
     if (argc < 6)
-        return 0;
+        return -1;
 
     double xmin = atof(argv[1]);
     double xmax = atof(argv[2]);
@@ -37,4 +37,6 @@ int main(int argc, char** argv)
 
     StdOut::println(counter);
     StdOut::printf("box area = %.2f\n", box.area());
+
+    return 0;
 }

@@ -10,7 +10,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestBinarySearch()
 {
     // read the integers from a file
     In in = new In(args[0]);

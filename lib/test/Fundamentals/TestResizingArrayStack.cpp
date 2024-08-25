@@ -7,7 +7,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestResizingArrayStack()
 {
     ResizingArrayStack<std::string> stack = ResizingArrayStack<std::string>();
     while (!StdIn::is_empty())

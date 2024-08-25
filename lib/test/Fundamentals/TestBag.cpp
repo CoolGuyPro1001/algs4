@@ -7,7 +7,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestBag(int argc, char** argv)
 {
     Bag<std::string> bag = Bag<std::string>();
     char item[64];
@@ -20,4 +20,6 @@ int main()
     // for (String s : bag) {
     //     StdOut.println(s);
     // }
+
+    return 0;
 }

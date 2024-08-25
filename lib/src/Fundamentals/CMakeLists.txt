@@ -5,11 +5,22 @@ target_sources(
     Accumulator.cpp
     Counter.cpp
     Date.cpp
+    DoublingRatio.cpp
+    DoublingTest.cpp
     Interval1D.cpp
     Interval2D.cpp
+    LinearRegression.cpp
     Point2D.cpp
+    QuickFindUF.cpp
+    QuickUnionUF.cpp
     RectHV.cpp
     StaticSETofInts.cpp
+    Stopwatch.cpp
+    StopwatchCPU.cpp
+    ThreeSum.cpp
+    ThreeSumFast.cpp
     Transaction.cpp
+    UF.cpp
     Vector.cpp
+    WeightedQuickUnionUF.cpp
 )

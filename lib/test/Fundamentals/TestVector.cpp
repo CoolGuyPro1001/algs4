@@ -6,7 +6,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestVector(int argc, char** argv)
 {
     std::initializer_list<double> x_data = { 1.0, 2.0, 3.0, 4.0 };
     std::initializer_list<double> y_data = { 5.0, 2.0, 4.0, 1.0 };
@@ -26,4 +26,6 @@ int main()
     StdOut::printf(" <x, y>    = %f\n", x.dot(y));
     StdOut::printf("dist(x, y) = %f\n", x.distance_to(y));
     StdOut::printf("dir(x)     = %s\n", x.direction().to_string().c_str());
+
+    return 0;
 }

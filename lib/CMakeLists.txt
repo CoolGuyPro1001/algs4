@@ -1,5 +1,7 @@
 add_library(algs4cpp)
 
+target_compile_features(algs4cpp PUBLIC cxx_std_20)
+
 target_compile_options(
     algs4cpp
     PUBLIC
@@ -18,6 +20,9 @@ target_precompile_headers(algs4cpp
     PUBLIC
     pch.h
 )
+
+#add_subdirectory(wxWidgets-3.2.5)
+#target_link_libraries(algs4cpp wx::net wx::core wx::base)
 
 include(GNUInstallDirs)
 
@@ -62,6 +67,7 @@ export(
 )
 
 export(PACKAGE algs4cpp)
+
 
 add_subdirectory(src)
 add_subdirectory(test)

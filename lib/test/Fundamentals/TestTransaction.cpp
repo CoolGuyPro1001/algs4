@@ -6,7 +6,7 @@
     *
     * @param args the command-line arguments
 */
-int main()
+int Fundamentals_TestTransaction(int argc, char** argv)
 {
     std::vector<Transaction> a = std::vector<Transaction>();
     a.emplace_back(Transaction("Turing   6/17/1990  644.08"));
@@ -36,4 +36,6 @@ int main()
     for (int i = 0; i < a.size(); i++)
         StdOut::println(a[i]);
     StdOut::println();
+
+    return 0;
 }

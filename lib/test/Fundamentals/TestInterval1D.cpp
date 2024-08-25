@@ -6,7 +6,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestInterval1D(int argc, char** argv)
 {
     std::vector<Interval1D> intervals = std::vector<Interval1D>();
     intervals.reserve(10);
@@ -38,4 +38,6 @@ int main()
     for (int i = 0; i < intervals.size(); i++)
         StdOut::println(intervals[i]);
     StdOut::println();
+
+    return 0;
 }

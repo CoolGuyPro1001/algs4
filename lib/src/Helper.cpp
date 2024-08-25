@@ -1,6 +1,6 @@
-void error(std::string outputError)
+void error(std::string output_error)
 {
-    std::cerr << "Error: " << outputError << "\n";
+    std::cerr << "Error: " << output_error << "\n";
     exit(EXIT_FAILURE);
 }
 

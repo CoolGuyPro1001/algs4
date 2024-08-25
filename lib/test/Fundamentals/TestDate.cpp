@@ -6,11 +6,12 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestDate(int argc, char** argv)
 {
     Date today = Date(2, 25, 2004);
     StdOut::println(today);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         today = today.next();
         StdOut::println(today);
     }
@@ -26,4 +27,6 @@ int main()
         birthday = birthday.next();
         StdOut::println(birthday);
     }
+
+    return 0;
 }

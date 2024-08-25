@@ -1,7 +1,7 @@
 #include "StdIn.h"
 #include "StdOut.h"
 
-int main()
+int Misc_TestStdIn(int argc, char** argv)
 {
     StdOut::print("Type a string: ");
     std::string s = StdIn::read_string();
@@ -22,4 +22,6 @@ int main()
     double c = StdIn::read_double();
     StdOut::println("Your double was: " + std::to_string(c));
     StdOut::println();
+
+    return 0;
 }

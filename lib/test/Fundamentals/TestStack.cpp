@@ -7,7 +7,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestStack()
 {
     Stack<std::string> stack = Stack<std::string>();
     while (!StdIn::is_empty()) {

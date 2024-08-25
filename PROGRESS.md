@@ -1,9 +1,11 @@
 ## Key
-* C - Completely ported
+* C - Completely implemented
 * I - Incomplete or commented out code
-* M - Missing unit testing main (source code still usable)
+* M - Missing unit testing main 
 * B - Has bugs or vulnerability
-* N - Not ported
+* N - Not implemented
+* W - Doesn't work in Windows
+* U - Doesn't work in Linux/Mac/Unix
 
 ## List
 | Fundamentals | Status |
@@ -32,16 +34,16 @@
 | ResizingArrayBag | N |
 | LinkedBag | N |
 | Bag | MI |
-| Stopwatch | N |
-| StopwatchCPU | N |
-| LinearRegression | N |
-| ThreeSum | N |
-| ThreeSumFast | N |
-| DoublingTest | N |
-| DoublingRatio | N |
-| QuickFindUF | N |
-| QuickUnionUF | N |
-| WeightedQuickUnionUF | N |
+| Stopwatch | C |
+| StopwatchCPU | W |
+| LinearRegression | C |
+| ThreeSum | M |
+| ThreeSumFast | M |
+| DoublingTest | M |
+| DoublingRatio | M |
+| QuickFindUF | M |
+| QuickUnionUF | M |
+| WeightedQuickUnionUF | M |
 | UF | N |
 
 | Sorting | Status |

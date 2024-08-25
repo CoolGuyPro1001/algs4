@@ -7,7 +7,7 @@
  *
  * @param args the command-line arguments
  */
-int main()
+int Fundamentals_TestLinkedStack(int argc, char** argv)
 {
     LinkedStack<std::string> stack = LinkedStack<std::string>();
     while (!StdIn::is_empty())
@@ -19,4 +19,6 @@ int main()
             StdOut::print(stack.pop() + " ");
     }
     StdOut::printf("(%d left on stack)\n",stack.size()); 
+
+    return 0;
 }
