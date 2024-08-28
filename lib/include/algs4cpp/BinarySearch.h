@@ -47,7 +47,7 @@ namespace BinarySearch
      * @param  key the search key
      * @return index of key in array {@code a} if present; {@code -1} otherwise
      */
-    int index_of(std::vector<int> a, int key);
+    int index_of(std::vector<int>& a, int key);
 }
 
 /******************************************************************************

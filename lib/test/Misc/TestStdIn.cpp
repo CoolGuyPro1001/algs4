@@ -14,7 +14,7 @@ int Misc_TestStdIn(int argc, char** argv)
     StdOut::println();
 
     StdOut::print("Type a boolean: ");
-    bool b = StdIn::read_boolean();
+    bool b = StdIn::read_bool();
     StdOut::println("Your boolean was: " + std::to_string(b));
     StdOut::println();
 

@@ -104,11 +104,47 @@ uint8_t StdIn::read_byte()
     return num;
 }
 
-bool StdIn::read_boolean()
+bool StdIn::read_bool()
 {
     bool b;
     std::cin >> b;
     return b;
+}
+
+std::vector<std::string> StdIn::read_all_lines()
+{
+    std::string line;
+    std::vector<std::string> lines;
+
+    while (std::getline(std::cin, line))
+    {
+       lines.push_back(line); 
+    }
+
+    return lines;
+}
+
+std::vector<std::string> StdIn::read_all_strings()
+{
+    std::vector<std::string> lines = read_all_lines();
+    std::vector<std::string> tokens;
+    std::vector<char> line = std::vector<char>(200); // Make vector for dynamic resizing
+
+    for (auto it = lines.begin(); it != lines.end(); it++)
+    {
+        if (it->size() > line.size())
+            line.resize(line.size() * 2);
+
+        std::copy(it->begin(), it->end(), line.begin());
+        char* token = strtok(&line[0], " \t");
+        while (token != nullptr)
+        {
+            tokens.push_back(std::string(token));
+            token = strtok(nullptr, " \t");
+        }
+    }
+
+    return tokens;
 }
 
 bool StdIn::scanf(const char* format, ...)

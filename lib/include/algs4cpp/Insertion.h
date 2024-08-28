@@ -1,6 +1,8 @@
 #ifndef INSERTION_H
 #define INSERTION_H
 
+#include "StdOut.h"
+
 /******************************************************************************
  *  Compilation:  javac Insertion.java
  *  Execution:    java Insertion < input.txt
@@ -133,10 +135,10 @@ public:
      * @return a permutation {@code p[]} such that {@code a[p[0]]}, {@code a[p[1]]},
      *    ..., {@code a[p[n-1]]} are in ascending order
      */
-    static std::vector<T> index_sort(std::vector<T>& a)
+    static std::vector<int> index_sort(std::vector<T> a)
     {
         int n = a.size();
-        std::vector<T> index = new int[n];
+        std::vector<int> index = std::vector<int>(n);
         for (int i = 0; i < n; i++)
             index[i] = i;
 
@@ -145,6 +147,15 @@ public:
                 exch(index, j, j-1);
 
         return index;
+    }
+
+    // print array to standard output
+    static void show(std::vector<T>& a)
+    {
+        for (int i = 0; i < a.size(); i++)
+        {
+            StdOut::println(a[i]);
+        }
     }
 
 private:
@@ -200,16 +211,6 @@ private:
         for (int i = lo + 1; i < hi; i++)
             if (less(a[i], a[i-1], cmp)) return false;
         return true;
-    }
-
-    // print array to standard output
-    template <typename T>
-    static void show(std::vector<T> a)
-    {
-        for (int i = 0; i < a.size(); i++)
-    {
-            StdOut.println(a[i]);
-        }
     }
 };
 

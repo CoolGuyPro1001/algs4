@@ -23,6 +23,6 @@ int Fundamentals_TestBinarySearch()
     while (!StdIn.isEmpty()) {
         int key = StdIn.readInt();
         if (BinarySearch.indexOf(allowlist, key) == -1)
-            StdOut.println(key);
+            StdOut::println(key);
     }
 }

@@ -31,6 +31,20 @@ set(test_sources
   Misc/TestStdIn.cpp
   Misc/TestStdOut.cpp
   Misc/TestStdRandom.cpp
+
+  Sorting/TestBinaryInsertion.cpp
+  Sorting/TestHeap.cpp
+  Sorting/TestInsertion.cpp
+  Sorting/TestInsertionX.cpp
+  Sorting/TestMerge.cpp
+  Sorting/TestMergeBU.cpp
+  Sorting/TestMergeX.cpp
+  Sorting/TestQuick.cpp
+  Sorting/TestQuick3way.cpp
+  Sorting/TestQuickBentleyMcIlroy.cpp
+  Sorting/TestQuickX.cpp
+  Sorting/TestSelection.cpp
+  Sorting/TestShell.cpp
 )
 
 create_test_sourcelist(tests Algs4CppTests.cpp ${test_sources})

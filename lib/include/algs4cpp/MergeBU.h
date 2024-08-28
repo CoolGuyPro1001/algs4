@@ -1,35 +1,35 @@
-#ifndef MERGE_H
-#define MERGE_H
+#ifndef MERGEBU_H
+#define MERGEBU_H
 
-#include "Merge.h"
 #include "StdOut.h"
 
 /******************************************************************************
- *  Compilation:  javac Merge.java
- *  Execution:    java Merge < input.txt
+ *  Compilation:  javac MergeBU.java
+ *  Execution:    java MergeBU < input.txt
  *  Dependencies: StdOut.java StdIn.java
  *  Data files:   https://algs4.cs.princeton.edu/22mergesort/tiny.txt
  *                https://algs4.cs.princeton.edu/22mergesort/words3.txt
  *
- *  Sorts a sequence of strings from standard input using mergesort.
+ *  Sorts a sequence of strings from standard input using
+ *  bottom-up mergesort.
  *
  *  % more tiny.txt
  *  S O R T E X A M P L E
  *
- *  % java Merge < tiny.txt
+ *  % java MergeBU < tiny.txt
  *  A E E L M O P R S T X                 [ one string per line ]
  *
  *  % more words3.txt
  *  bed bug dad yes zoo ... all bad yet
  *
- *  % java Merge < words3.txt
+ *  % java MergeBU < words3.txt
  *  all bad bed bug dad ... yes yet zoo    [ one string per line ]
  *
  ******************************************************************************/
 
 /**
- *  The {@code Merge} class provides methods for sorting an
- *  array using a top-down, recursive version of <em>mergesort</em>.
+ *  The {@code MergeBU} class provides static methods for sorting an
+ *  array using <em>bottom-up mergesort</em>. It is non-recursive.
  *  <p>
  *  This implementation takes &Theta;(<em>n</em> log <em>n</em>) time
  *  to sort any array of length <em>n</em> (assuming comparisons
@@ -41,15 +41,14 @@
  *  It uses &Theta;(<em>n</em>) extra memory (not including the input array).
  *  <p>
  *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/22mergesort">Section 2.2</a> of
+ *  <a href="https://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  For an optimized version, see {@link MergeX}.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
 template <typename T>
-class Merge
+class MergeBU
 {
 public:
     /**
@@ -58,30 +57,21 @@ public:
      */
     static void sort(std::vector<T>& a)
     {
-        std::vector<T> aux = std::vector<T>(a.size());
-        sort(a, aux, 0, a.size()-1);
+        int n = a.size();
+        std::vector<T> aux = std::vector<T>(n);
+        for (int len = 1; len < n; len *= 2)
+        {
+            for (int lo = 0; lo < n-len; lo += len+len)
+            {
+                int mid  = lo+len-1;
+                int hi = std::min(mid + len, n-1);
+                merge(a, aux, lo, mid, hi);
+            }
+        }
         assert(is_sorted(a));
     }
 
-    /**
-     * Returns a permutation that gives the elements in the array in ascending order.
-     * @param a the array
-     * @return a permutation {@code p[]} such that {@code a[p[0]]}, {@code a[p[1]]},
-     *    ..., {@code a[p[n-1]]} are in ascending order
-     */
-    static std::vector<int> index_sort(std::vector<T>& a)
-    {
-        int n = a.size();
-        std::vector<int> index = std::vector<int>(n);
-        for (int i = 0; i < n; i++)
-            index[i] = i;
-
-        std::vector<int> aux = std::vector<int>(n);
-        sort(a, index, aux, 0, n-1);
-        return index;
-    }
-
-    //print array to standard output
+    // print array to standard output
     static void show(std::vector<T>& a)
     {
         for (int i = 0; i < a.size(); i++)
@@ -91,12 +81,8 @@ public:
     }
 
 private:
-    // stably merge a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi]
-    static void merge(std::vector<T>& a, std::vector<T>& aux, int lo, int mid, int hi)
-    {
-        // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
-        assert(is_sorted(a, lo, mid));
-        assert(is_sorted(a, mid+1, hi));
+    // stably merge a[lo..mid] with a[mid+1..hi] using aux[lo..hi]
+    static void merge(std::vector<T>& a, std::vector<T>& aux, int lo, int mid, int hi) {
 
         // copy to aux[]
         for (int k = lo; k <= hi; k++)
@@ -108,85 +94,33 @@ private:
         int i = lo, j = mid+1;
         for (int k = lo; k <= hi; k++)
         {
-            if      (i > mid)              a[k] = aux[j++];
+            if      (i > mid)              a[k] = aux[j++];  // this copying is unnecessary
             else if (j > hi)               a[k] = aux[i++];
             else if (less(aux[j], aux[i])) a[k] = aux[j++];
             else                           a[k] = aux[i++];
         }
 
-        // postcondition: a[lo .. hi] is sorted
-        assert(is_sorted(a, lo, hi));
     }
 
-    // mergesort a[lo..hi] using auxiliary array aux[lo..hi]
-    static void sort(std::vector<T>& a, std::vector<T>& aux, int lo, int hi)
-    {
-        if (hi <= lo) return;
-        int mid = lo + (hi - lo) / 2;
-        sort(a, aux, lo, mid);
-        sort(a, aux, mid + 1, hi);
-        merge(a, aux, lo, mid, hi);
-    }
-
-
-    /***************************************************************************
-    *  Helper sorting function.
+    /***********************************************************************
+    *  Helper sorting functions.
     ***************************************************************************/
 
+    // is v < w ?
     static bool less(T v, T w)
     {
         return v < w;
     }
 
-    /***************************************************************************
+
+   /***************************************************************************
     *  Check if array is sorted - useful for debugging.
     ***************************************************************************/
-
     static bool is_sorted(std::vector<T>& a)
     {
-        return is_sorted(a, 0, a.size() - 1);
-    }
-
-    static bool is_sorted(std::vector<T>& a, int lo, int hi)
-    {
-        for (int i = lo + 1; i <= hi; i++)
+        for (int i = 1; i < a.size(); i++)
             if (less(a[i], a[i-1])) return false;
         return true;
-    }
-
-
-    /***************************************************************************
-    *  Index mergesort.
-    ***************************************************************************/
-    static void merge(std::vector<T>& a, 
-        std::vector<int>& index, std::vector<int>& aux, int lo, int mid, int hi)
-    {
-
-        // copy to aux[]
-        for (int k = lo; k <= hi; k++)
-        {
-            aux[k] = index[k];
-        }
-
-        // merge back to a[]
-        int i = lo, j = mid+1;
-        for (int k = lo; k <= hi; k++)
-        {
-            if      (i > mid)                    index[k] = aux[j++];
-            else if (j > hi)                     index[k] = aux[i++];
-            else if (less(a[aux[j]], a[aux[i]])) index[k] = aux[j++];
-            else                                 index[k] = aux[i++];
-        }
-    }
-
-    static void sort(std::vector<T>& a, 
-        std::vector<int>& index, std::vector<int>& aux, int lo, int hi)
-    {
-        if (hi <= lo) return;
-        int mid = lo + (hi - lo) / 2;
-        sort(a, index, aux, lo, mid);
-        sort(a, index, aux, mid + 1, hi);
-        merge(a, index, aux, lo, mid, hi);
     }
 };
 

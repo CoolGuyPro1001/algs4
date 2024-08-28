@@ -147,7 +147,7 @@
  *  As an example, the following code fragment reads all of the remaining
  *  tokens from standard input and returns them as an array of strings.
  *  <pre>
- *  String[] words = StdIn.readAllStrings();
+ *  std::vector<std::string> words = StdIn::readAllStrings();
  *  </pre>
  *  <p>
  *  <b>Differences with Scanner.</b>
@@ -335,7 +335,16 @@ namespace StdIn
      *    {@code true} or {@code 1} for true, and {@code false} or {@code 0} for false,
      *    ignoring case
      */
-    bool read_boolean();
+    bool read_bool();
+
+    std::vector<std::string> read_all_lines();
+    
+    /**
+     * Reads all remaining tokens from standard input and returns them as an array of strings.
+     *
+     * @return all remaining tokens on standard input, as an array of strings
+     */
+    std::vector<std::string> read_all_strings();
 
     /**
      * Reads from standard input as a format and stores the parameters in variables.

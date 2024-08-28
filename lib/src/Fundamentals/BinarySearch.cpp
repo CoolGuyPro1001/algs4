@@ -7,7 +7,7 @@
  * @param  key the search key
  * @return index of key in array {@code a} if present; {@code -1} otherwise
  */
-int BinarySearch::index_of(std::vector<int> a, int key) 
+int BinarySearch::index_of(std::vector<int>& a, int key) 
 {
     int lo = 0;
     int hi = a.size() - 1;

@@ -1,40 +1,26 @@
-#ifndef QUICK_H
-#define QUICK_H
+#ifndef QUICKX_H
+#define QUICKX_H
 
+#include "Insertion.h"
 #include "StdOut.h"
-#include "StdRandom.h"
 
 /******************************************************************************
- *  Compilation:  javac Quick.java
- *  Execution:    java Quick < input.txt
+ *  Compilation:  javac QuickX.java
+ *  Execution:    java QuickX < input.txt
  *  Dependencies: StdOut.java StdIn.java
  *  Data files:   https://algs4.cs.princeton.edu/23quicksort/tiny.txt
  *                https://algs4.cs.princeton.edu/23quicksort/words3.txt
  *
- *  Sorts a sequence of strings from standard input using quicksort.
- *
- *  % more tiny.txt
- *  S O R T E X A M P L E
- *
- *  % java Quick < tiny.txt
- *  A E E L M O P R S T X                 [ one string per line ]
- *
- *  % more words3.txt
- *  bed bug dad yes zoo ... all bad yet
- *
- *  % java Quick < words3.txt
- *  all bad bed bug dad ... yes yet zoo    [ one string per line ]
- *
- *
- *  Remark: For a type-safe version that uses static generics, see
- *
- *    https://algs4.cs.princeton.edu/23quicksort/QuickPedantic.java
+ *  Uses the Hoare's 2-way partitioning scheme, chooses the partitioning
+ *  element using median-of-3, and cuts off to insertion sort.
  *
  ******************************************************************************/
 
 /**
- *  The {@code Quick} class provides static methods for sorting an
- *  array and selecting the ith smallest element in an array using quicksort.
+ *  The {@code QuickX} class provides static methods for sorting an array
+ *  using an optimized version of quicksort (using Hoare's 2-way partitioning
+ *  algorithm, median-of-3 to choose the partitioning element, and cutoff
+ *  to insertion sort).
  *  <p>
  *  For additional documentation, see
  *  <a href="https://algs4.cs.princeton.edu/23quicksort">Section 2.3</a>
@@ -43,62 +29,23 @@
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-
 template <typename T>
-class Quick
+class QuickX
 {
 public:
+    
     /**
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
     static void sort(std::vector<T>& a)
     {
-        StdRandom::shuffle(a);
+        // StdRandom.shuffle(a);
         sort(a, 0, a.size() - 1);
         assert(is_sorted(a));
-    };
-
-    /**
-     * Rearranges the array so that {@code a[k]} contains the kth smallest key;
-     * {@code a[0]} through {@code a[k-1]} are less than (or equal to) {@code a[k]}; and
-     * {@code a[k+1]} through {@code a[n-1]} are greater than (or equal to) {@code a[k]}.
-     *
-     * @param  a the array
-     * @param  k the rank of the key
-     * @return the key of rank {@code k}
-     * @throws IllegalArgumentException unless {@code 0 <= k < a.size()}
-     */
-    static T select(std::vector<T>& a, int k)
-    {
-        if (k < 0 || k >= a.size())
-        {
-            error(std::format("index is not between 0 and {}: {}", a.size(), k));
-        }
-        StdRandom::shuffle(a);
-        int lo = 0, hi = a.size() - 1;
-        while (hi > lo)
-        {
-            int i = partition(a, lo, hi);
-            if      (i > k) hi = i - 1;
-            else if (i < k) lo = i + 1;
-            else return a[i];
-        }
-        return a[lo];
     }
 
-    static bool is_sorted(std::vector<T>& a)
-    {
-        return is_sorted(a, 0, a.size() - 1);
-    }
-
-    static bool is_sorted(std::vector<T>& a, int lo, int hi)
-    {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
-    }
-
+    // print array to standard output
     static void show(std::vector<T>& a)
     {
         for (int i = 0; i < a.size(); i++)
@@ -107,40 +54,68 @@ public:
         }
     }
 
+    /***************************************************************************
+    *  Check if array is sorted - useful for debugging.
+    ***************************************************************************/
+    static bool is_sorted(std::vector<T>& a)
+    {
+        for (int i = 1; i < a.size(); i++)
+            if (less(a[i], a[i-1])) return false;
+        return true;
+    }
+
 private:
+    // cutoff to insertion sort, must be >= 1
+    static const int INSERTION_SORT_CUTOFF = 8;
+
+    // quicksort the subarray from a[lo] to a[hi]
     static void sort(std::vector<T>& a, int lo, int hi)
     {
         if (hi <= lo) return;
+
+        // cutoff to insertion sort (Insertion.sort() uses half-open intervals)
+        int n = hi - lo + 1;
+        if (n <= INSERTION_SORT_CUTOFF)
+        {
+            Insertion<T>::sort(a, lo, hi + 1);
+            return;
+        }
+
         int j = partition(a, lo, hi);
         sort(a, lo, j-1);
         sort(a, j+1, hi);
-        assert(is_sorted(a, lo, hi));
     }
 
+    // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
+    // and return the index j.
     static int partition(std::vector<T>& a, int lo, int hi)
     {
+        int n = hi - lo + 1;
+        int m = median3(a, lo, lo + n/2, hi);
+        exch(a, m, lo);
+
         int i = lo;
         int j = hi + 1;
         T v = a[lo];
-        while (true)
+
+        // a[lo] is unique largest element
+        while (less(a[++i], v))
         {
+            if (i == hi) { exch(a, lo, hi); return hi; }
+        }
 
-            // find item on lo to swap
-            while (less(a[++i], v))
-            {
-                if (i == hi) break;
-            }
+        // a[lo] is unique smallest element
+        while (less(v, a[--j]))
+        {
+            if (j == lo + 1) return lo;
+        }
 
-            // find item on hi to swap
-            while (less(v, a[--j]))
-            {
-                if (j == lo) break;      // redundant since a[lo] acts as sentinel
-            }
-
-            // check if pointers cross
-            if (i >= j) break;
-
+        // the main loop
+        while (i < j)
+        {
             exch(a, i, j);
+            while (less(a[++i], v)) ;
+            while (less(v, a[--j])) ;
         }
 
         // put partitioning item v at a[j]
@@ -150,12 +125,25 @@ private:
         return j;
     }
 
+    // return the index of the median element among a[i], a[j], and a[k]
+    static int median3(std::vector<T>& a, int i, int j, int k)
+    {
+        return (less(a[i], a[j]) ?
+               (less(a[j], a[k]) ? j : less(a[i], a[k]) ? k : i) :
+               (less(a[k], a[j]) ? j : less(a[k], a[i]) ? k : i));
+    }
+
+   /***************************************************************************
+    *  Helper sorting functions.
+    ***************************************************************************/
+
+    // is v < w ?
     static bool less(T v, T w)
     {
-        if (v == w) return false;   // optimization when reference equals
         return v < w;
     }
 
+    // exchange a[i] and a[j]
     static void exch(std::vector<T>& a, int i, int j)
     {
         T swap = a[i];

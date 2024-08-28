@@ -14,8 +14,8 @@ Source Code: https://algs4.cs.princeton.edu/code/
 algs4.jar Download: https://algs4.cs.princeton.edu/code/algs4.jar
 
 ## Progress
-* 26/201 programs implemented (with or without main unit test)
-* 13% complete
+* 36/201 programs implemented (with or without main unit test)
+* 18% complete
 
 ## Using algs4cpp
 ### Requirements

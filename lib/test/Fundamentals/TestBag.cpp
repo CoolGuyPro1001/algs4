@@ -18,7 +18,7 @@ int Fundamentals_TestBag(int argc, char** argv)
 
     StdOut::printf("size of bag = %d\n", bag.size());
     // for (String s : bag) {
-    //     StdOut.println(s);
+    //     StdOut::println(s);
     // }
 
     return 0;
