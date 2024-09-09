@@ -1,5 +1,5 @@
 #include "LinkedStack.h"
-#include "StdIn.h"
+#include "In.h"
 #include "StdOut.h"
 
 /**
@@ -9,12 +9,14 @@
  */
 int Fundamentals_TestLinkedStack(int argc, char** argv)
 {
+    In tobe_file("res/tobe.txt");
     LinkedStack<std::string> stack = LinkedStack<std::string>();
-    while (!StdIn::is_empty())
+    std::vector<std::string> items = tobe_file.read_all_strings();
+
+    for (auto item = items.begin(); item != items.end(); item++)
     {
-        std::string item = StdIn::read_string();
-        if (!(item == "-"))
-            stack.push(item);
+        if (!(*item == "-"))
+            stack.push(*item);
         else if (!stack.is_empty())
             StdOut::print(stack.pop() + " ");
     }

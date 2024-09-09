@@ -1,5 +1,5 @@
 #include "UF.h"
-#include "StdIn.h"
+#include "In.h"
 #include "StdOut.h"
 
 /**
@@ -13,12 +13,12 @@
  */
 int Fundamentals_TestUF(int argc, char** argv)
 {
-    int n = StdIn::read_int();
-    UF uf = UF(n);
-    while (!StdIn::is_empty())
+    In tinyUF_file("res/tinyUF.txt");
+    UF uf = UF(tinyUF_file.read_int());
+    tinyUF_file.read_line(); // Skip the newline after the first number
+    int p, q;
+    while (tinyUF_file.fscanf("%d %d\n", &p, &q))
     {
-        int p = StdIn::read_int();
-        int q = StdIn::read_int();
         if (uf.find(p) == uf.find(q)) continue;
         uf.union_op(p, q);
         StdOut::printf("%d %d\n", p, q); 

@@ -1,6 +1,6 @@
 #include "Bag.h"
 #include "StdOut.h"
-#include "StdIn.h"
+#include "In.h"
 
 /**
  * Unit tests the {@code Bag} data type.
@@ -10,10 +10,12 @@
 int Fundamentals_TestBag(int argc, char** argv)
 {
     Bag<std::string> bag = Bag<std::string>();
-    char item[64];
-    while (StdIn::scanf("%s", &item))
+    In tobe_file("res/tobe.txt");
+    std::vector<std::string> items = tobe_file.read_all_strings();
+    
+    for (auto item = items.begin(); item != items.end(); item++)
     {
-        bag.add(std::string(item));
+        bag.add(*item);
     }
 
     StdOut::printf("size of bag = %d\n", bag.size());

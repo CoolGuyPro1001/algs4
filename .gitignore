@@ -1,3 +1,5 @@
 /build
 /.vscode
 /lib/wxWidgets-3.2.5
+/res
+!*/res/algs4data.sh

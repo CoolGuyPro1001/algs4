@@ -76,12 +76,12 @@ public:
         assert(capacity >= m_n);
 
         // textbook implementation
-        std::vector<std::unique_ptr<Node<Item>>> copy = std::vector<std::unique_ptr<Node<Item>>>(capacity);
+        std::vector<std::unique_ptr<Item>> copy = std::vector<std::unique_ptr<Item>>(capacity);
         for (int i = 0; i < m_n; i++)
         {
-           // copy[i] = std::move(m_a[i]);
+           copy[i] = std::move(m_a[i]);
         }
-        //m_a = copy;
+        m_a = copy;
     }
 
     /**

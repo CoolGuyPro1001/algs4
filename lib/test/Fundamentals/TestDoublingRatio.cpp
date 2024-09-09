@@ -10,10 +10,10 @@
  */
 int Fundamentals_TestDoublingRatio(int argc, char** argv)
 {
-    double prev = time_trial(125);
+    double prev = DoublingRatio::time_trial(125);
     for (int n = 250; true; n += n)
     {
-        double time = time_trial(n);
+        double time = DoublingRatio::time_trial(n);
         StdOut::printf("%7d %7.1f %5.1f\n", n, time, time/prev);
         prev = time;
     }

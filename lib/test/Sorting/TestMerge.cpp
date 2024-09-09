@@ -1,5 +1,6 @@
 #include "Merge.h"
-#include "StdIn.h"
+#include "StdOut.h"
+#include "In.h"
 
 /**
  * Reads in a sequence of strings from standard input; mergesorts them;
@@ -7,11 +8,21 @@
  *
  * @param args the command-line arguments
  */
+
 int Sorting_TestMerge(int argc, char** argv)
 {
-    std::vector<std::string> a = StdIn::read_all_strings();
-    Merge<std::string>::sort(a);
-    Merge<std::string>::show(a);
+    In tiny_file("res/tiny.txt");
+    std::vector<std::string> tiny_data = tiny_file.read_all_strings();
+    Merge<std::string>::sort(tiny_data);
+    StdOut::println("Sorted Tiny Data");
+    Merge<std::string>::show(tiny_data);
+    StdOut::println();
+
+    In words3_file("res/words3.txt");
+    std::vector<std::string> words3_data = words3_file.read_all_strings();
+    Merge<std::string>::sort(words3_data);
+    StdOut::println("Sorted Words3 Data");
+    Merge<std::string>::show(words3_data);
 
     return 0;
 }

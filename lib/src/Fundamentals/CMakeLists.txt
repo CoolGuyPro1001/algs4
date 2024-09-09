@@ -3,6 +3,7 @@ target_sources(
     PRIVATE
 
     Accumulator.cpp
+    BinarySearch.cpp
     Counter.cpp
     Date.cpp
     DoublingRatio.cpp

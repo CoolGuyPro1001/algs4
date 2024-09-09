@@ -37,7 +37,7 @@ int main()
     int value;
 
     // read data and compute statistics
-    while (StdIn::scanf("%d", &value))
+    while (StdIn::scanf("{}\n", value))
     {
         sum += value;
         count++;

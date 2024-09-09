@@ -10,8 +10,9 @@
 int Fundamentals_TestStack()
 {
     Stack<std::string> stack = Stack<std::string>();
-    while (!StdIn::is_empty()) {
-        String item = StdIn.readString();
+    std::string item;
+    while (StdIn::scanf("{}\n", item))
+    {
         if (!item == "-")
             stack.push(item);
         else if (!stack.is_empty())

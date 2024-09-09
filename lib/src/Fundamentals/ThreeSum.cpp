@@ -1,7 +1,7 @@
 #include "ThreeSum.h"
 #include "StdOut.h"
 
-void ThreeSum::print_all(std::vector<int> a)
+void ThreeSum::print_all(std::vector<int>& a)
 {
     int n = a.size();
     for (int i = 0; i < n; i++)
@@ -19,7 +19,7 @@ void ThreeSum::print_all(std::vector<int> a)
     }
 }
 
-int ThreeSum::count(std::vector<int> a)
+int ThreeSum::count(std::vector<int>& a)
 {
     int n = a.size();
     int count = 0;

@@ -81,6 +81,22 @@ public:
         }
         assert(is_sorted(a));
     }
+    
+    /***************************************************************************
+    *  Check if array is sorted - useful for debugging.
+    ***************************************************************************/
+    static bool is_sorted(std::vector<T>& a)
+    {
+        return is_sorted(a, 0, a.size() - 1);
+    }
+
+    // is the array sorted from a[lo] to a[hi]
+    static bool is_sorted(std::vector<T>& a, int lo, int hi)
+    {
+        for (int i = lo + 1; i <= hi; i++)
+            if (less(a[i], a[i-1])) return false;
+        return true;
+    }
 
     // print array to standard output
     static void show(std::vector<T>& a)
@@ -101,22 +117,6 @@ private:
     static bool less(T v, T w)
     {
         return v < w; 
-    }
-
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
-    static bool is_sorted(std::vector<T>& a)
-    {
-        return is_sorted(a, 0, a.size() - 1);
-    }
-
-    // is the array sorted from a[lo] to a[hi]
-    static bool is_sorted(std::vector<T>& a, int lo, int hi)
-    {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
-        return true;
     }
 };
 

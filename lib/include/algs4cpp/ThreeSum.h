@@ -47,7 +47,7 @@ namespace ThreeSum
      *
      * @param a the array of integers
      */
-    void print_all(std::vector<int> a);
+    void print_all(std::vector<int>& a);
 
     /**
      * Returns the number of triples (i, j, k) with {@code i < j < k}
@@ -57,7 +57,7 @@ namespace ThreeSum
      * @return the number of triples (i, j, k) with {@code i < j < k}
      *         such that {@code a[i] + a[j] + a[k] == 0}
      */
-    int count(std::vector<int> a);
+    int count(std::vector<int>& a);
 }
 
 /******************************************************************************

@@ -14,8 +14,7 @@
  */
 int Fundamentals_TestStopwatchCPU(int argc, char** argv)
 {
-    if (argc != 2) return -1;
-    int n = atoi(argv[1]);
+    int n = 100000000; 
 
     // sum of square roots of integers from 1 to n using Math.sqrt(x).
     StopwatchCPU timer1 = StopwatchCPU();

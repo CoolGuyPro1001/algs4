@@ -179,10 +179,10 @@ public:
 
         // check internal consistency of instance variable n
         int number_of_nodes = 0;
-        // for (std::unique_ptr<Node<Item>> x = m_first; x != nullptr && number_of_nodes <= m_n; x = x->next)
-        // {
-        //     number_of_nodes++;
-        // }
+        for (Node<Item>* x = m_first.get(); x != nullptr && number_of_nodes <= m_n; x = x->next.get())
+        {
+            number_of_nodes++;
+        }
         if (number_of_nodes != m_n) return false;
 
         return true;

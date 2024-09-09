@@ -10,7 +10,7 @@
  *  Reads in data of various types from standard input.
  *
  ******************************************************************************/
-
+ 
 /**
  *  The {@code StdIn} class provides static methods for reading strings
  *  and numbers from standard input.
@@ -209,37 +209,6 @@
 namespace StdIn
 {
    /**
-     * Returns true if standard input is empty (except possibly for whitespace).
-     * Use this method to know whether the next call to {@link #readString()},
-     * {@link #readDouble()}, etc. will succeed.
-     *
-     * @return {@code true} if standard input is empty (except possibly
-     *         for whitespace); {@code false} otherwise
-     */
-    bool is_empty();
-
-   /**
-     * Returns true if standard input has a next line.
-     * Use this method to know whether the
-     * next call to {@link #readLine()} will succeed.
-     * This method is functionally equivalent to {@link #hasNextChar()}.
-     *
-     * @return {@code true} if standard input has more input (including whitespace);
-     *         {@code false} otherwise
-     */
-    bool has_next_line();
-
-    /**
-     * Returns true if standard input has more input (including whitespace).
-     * Use this method to know whether the next call to {@link #readChar()} will succeed.
-     * This method is functionally equivalent to {@link #hasNextLine()}.
-     *
-     * @return {@code true} if standard input has more input (including whitespace);
-     *         {@code false} otherwise
-     */
-    bool has_next_char();
-
-   /**
      * Reads and returns the next line, excluding the line separator if present.
      *
      * @return the next line, excluding the line separator if present;
@@ -337,22 +306,13 @@ namespace StdIn
      */
     bool read_bool();
 
-    std::vector<std::string> read_all_lines();
-    
-    /**
-     * Reads all remaining tokens from standard input and returns them as an array of strings.
-     *
-     * @return all remaining tokens on standard input, as an array of strings
-     */
-    std::vector<std::string> read_all_strings();
-
     /**
      * Reads from standard input as a format and stores the parameters in variables.
-     * @param format - Parameter format. See scanf()
-     * @param vargs - variables to pass data into
+     * @param format - Parameter format. See std::format()
+     * @param args - variables to pass data into
      * @return true if standard input was read succesfully
     */
-   bool scanf(const char* format, ...);
+    bool scanf(const char* format, ...);
 };
 
 /******************************************************************************

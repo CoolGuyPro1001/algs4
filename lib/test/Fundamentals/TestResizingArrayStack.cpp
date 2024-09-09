@@ -10,9 +10,9 @@
 int Fundamentals_TestResizingArrayStack()
 {
     ResizingArrayStack<std::string> stack = ResizingArrayStack<std::string>();
-    while (!StdIn::is_empty())
+    std::string item;
+    while (StdIn::scanf("{}\n", item))
     {
-        std::string item = StdIn::read_string();
         if (!(item == "-")) stack.push(item);
         else if (!stack.is_empty()) StdOut::printf("%d ", stack.pop()); 
     }

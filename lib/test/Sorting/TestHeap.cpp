@@ -1,5 +1,6 @@
 #include "Heap.h"
-#include "StdIn.h"
+#include "StdOut.h"
+#include "In.h"
 
 /**
  * Reads in a sequence of strings from standard input; heapsorts them;
@@ -9,9 +10,18 @@
  */
 int Sorting_TestHeap(int argc, char** argv)
 {
-    std::vector<std::string> a = StdIn::read_all_strings();
-    Heap<std::string>::sort(a);
-    Heap<std::string>::show(a);
+    In tiny_file("res/tiny.txt");
+    std::vector<std::string> tiny_data = tiny_file.read_all_strings();
+    Heap<std::string>::sort(tiny_data);
+    StdOut::println("Sorted Tiny Data");
+    Heap<std::string>::show(tiny_data);
+    StdOut::println();
+
+    In words3_file("res/words3.txt");
+    std::vector<std::string> words3_data = words3_file.read_all_strings();
+    Heap<std::string>::sort(words3_data);
+    StdOut::println("Sorted Words3 Data");
+    Heap<std::string>::show(words3_data);
 
     return 0;
 }

@@ -1,5 +1,5 @@
 #include "QuickFindUF.h"
-#include "StdIn.h"
+#include "In.h"
 #include "StdOut.h"
 
 /**
@@ -11,19 +11,26 @@
  *
  * @param args the command-line arguments
  */
-int Fundamentals_TestQuickFindUF(int argc, char** argv)
+void qf_test(std::string uf_file_name)
 {
-    int n = StdIn::read_int();
+    In uf_file(uf_file_name);
+    int n = uf_file.read_int();
     QuickFindUF uf = QuickFindUF(n);
-    while (!StdIn::is_empty())
+    uf_file.read_line(); // Skip newline after first number
+    int p, q;
+    while (uf_file.fscanf("%d %d\n", &p, &q))
     {
-        int p = StdIn::read_int();
-        int q = StdIn::read_int();
         if (uf.find(p) == uf.find(q)) continue;
         uf.union_op(p, q);
         StdOut::printf("%d %d\n", p, q);
     }
     StdOut::printf("%d components\n", uf.count());
+}
 
+int Fundamentals_TestQuickFindUF(int argc, char** argv)
+{
+    qf_test("res/tinyUF.txt");
+    qf_test("res/mediumUF.txt");
+    qf_test("res/largeUF.txt");
     return 0;
 }

@@ -65,7 +65,7 @@ namespace ThreeSumFast
      * @param a the array of integers
      * @throws IllegalArgumentException if the array contains duplicate integers
      */
-    void print_all(std::vector<int> a);
+    void print_all(std::vector<int>& a);
 
     /**
      * Returns the number of triples (i, j, k) with {@code i < j < k}
@@ -75,7 +75,7 @@ namespace ThreeSumFast
      * @return the number of triples (i, j, k) with {@code i < j < k}
      * such that {@code a[i] + a[j] + a[k] == 0}
      */
-    int count(std::vector<int> a);
+    int count(std::vector<int>& a);
 }
 
 /******************************************************************************

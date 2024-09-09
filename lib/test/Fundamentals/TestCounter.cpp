@@ -10,11 +10,8 @@
 */
 int Fundamentals_TestCounter(int argc, char** argv)
 {
-    if (argc < 3)
-        return 0;
-
-    int n = atoi(argv[1]);
-    int trials = atoi(argv[2]);
+    int n = 6;
+    int trials = 600000;
 
     // create n counters
     std::vector<Counter> hits = std::vector<Counter>();
