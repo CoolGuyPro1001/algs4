@@ -92,45 +92,26 @@ public:
      */
     void add(Item item)
     {
-        std::unique_ptr<Node<Item>> oldfirst = std::move(m_first);
-        m_first = std::make_unique<Node<Item>>();
+        ptr<Node<Item>> old_first = std::move(m_first);
+        m_first = alloc<Node<Item>>();
         m_first->item = item;
-        m_first->next = std::move(oldfirst);
+        m_first->next = std::move(old_first);
         m_n++;
     }
 
-    /**
-     * Returns an iterator that iterates over the items in this bag in arbitrary order.
-     *
-     * @return an iterator that iterates over the items in this bag in arbitrary order
-     */
-    //TODO
-    /*Iterator<Item> iterator()  {
-        return new LinkedIterator(first);
+    LinkedIterator<Item> begin()
+    {
+        return LinkedIterator<Item>(m_first.get());
     }
 
-    private class LinkedIterator implements Iterator<Item> {
-        private Node<Item> current;
+    LinkedIterator<Item> end()
+    {
+        return LinkedIterator<Item>(nullptr);
+    }
 
-        LinkedIterator(Node<Item> first) {
-            current = first;
-        }
-
-        boolean hasNext()  {
-            return current != null;
-        }
-
-        Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
-            Item item = current.item;
-            current = current.next;
-            return item;
-        }
-    }*/
-    
 private:
-    std::unique_ptr<Node<Item>> m_first;    // beginning of bag
-    int m_n;               // number of elements in bag
+    ptr<Node<Item>> m_first;    // beginning of bag
+    int m_n;               // number of elements in bag  
 };
 
 /******************************************************************************

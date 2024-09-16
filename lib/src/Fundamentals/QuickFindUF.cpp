@@ -9,12 +9,12 @@ QuickFindUF::QuickFindUF(int n)
         m_id[i] = i;
 }
 
-int QuickFindUF::count()
+int QuickFindUF::count() const
 {
     return m_count;
 }
 
-int QuickFindUF::find(int p)
+int QuickFindUF::find(int p) const
 {
     validate(p);
     return m_id[p];
@@ -35,11 +35,11 @@ void QuickFindUF::union_op(int p, int q)
     m_count--;
 }
 
-void QuickFindUF::validate(int p)
+void QuickFindUF::validate(int p) const
 {
     int n = m_id.size();
     if (p < 0 || p >= n)
     {
-        error(std::format("index {} is not between 0 and {}", p, (n-1)));
+        error("index {} is not between 0 and {}", p, (n-1));
     }
 }

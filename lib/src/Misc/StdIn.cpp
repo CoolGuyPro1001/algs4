@@ -1,11 +1,15 @@
 #include "StdIn.h"
 #include "StdOut.h"
 
+bool StdIn::is_empty()
+{
+    return std::cin.eof();
+}
+
 std::string StdIn::read_line()
 {
     std::string line;
     std::getline(std::cin, line);
-    if (line == "") 
     return line;
 }
 

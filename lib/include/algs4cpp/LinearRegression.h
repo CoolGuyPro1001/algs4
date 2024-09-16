@@ -43,14 +43,14 @@ public:
      *
      * @return the <em>y</em>-intercept &alpha; of the best-fit line <em>y = &alpha; + &beta; x</em>
      */
-    double intercept();
+    double intercept() const;
 
    /**
      * Returns the slope &beta; of the best of the best-fit line <em>y</em> = &alpha; + &beta; <em>x</em>.
      *
      * @return the slope &beta; of the best-fit line <em>y</em> = &alpha; + &beta; <em>x</em>
      */
-    double slope();
+    double slope() const;
 
    /**
      * Returns the coefficient of determination <em>R</em><sup>2</sup>.
@@ -58,21 +58,21 @@ public:
      * @return the coefficient of determination <em>R</em><sup>2</sup>,
      *         which is a real number between 0 and 1
      */
-    double R2();
+    double R2() const;
 
    /**
      * Returns the standard error of the estimate for the intercept.
      *
      * @return the standard error of the estimate for the intercept
      */
-    double intercept_stderr();
+    double intercept_stderr() const;
 
    /**
      * Returns the standard error of the estimate for the slope.
      *
      * @return the standard error of the estimate for the slope
      */
-    double slope_stderr();
+    double slope_stderr() const;
 
    /**
      * Returns the expected response {@code y} given the value of the predictor
@@ -82,7 +82,7 @@ public:
      * @return the expected response {@code y} given the value of the predictor
      *         variable {@code x}
      */
-    double predict(double x);
+    double predict(double x) const;
 
    /**
      * Returns a string representation of the simple linear regression model.
@@ -91,7 +91,7 @@ public:
      *         including the best-fit line and the coefficient of determination
      *         <em>R</em><sup>2</sup>
      */
-    std::string to_string();
+    std::string to_string() const;
 
 private:
     double m_intercept, m_slope;

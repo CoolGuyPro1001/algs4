@@ -1,3 +1,7 @@
+#include "StaticSETofInts.h"
+#include "In.h"
+#include "StdOut.h"
+
 /******************************************************************************
  *  Compilation:  javac Allowlist.java
  *  Execution:    java Allowlist allowlist.txt < data.txt
@@ -48,19 +52,23 @@
  *
  * @param args the command-line arguments
 */
-/*int main(char* argv, int argc)
+int main(int argc, char** argv)
 {
-    In in = new In(args[0]);
-    int[] white = in.readAllInts();
-    StaticSETofInts set = new StaticSETofInts(white);
+    if (argc < 3) return 1;
+
+    In allow_file(argv[1]);
+    std::vector<int> white = allow_file.read_all_ints();
+    StaticSETofInts set = StaticSETofInts(white);
 
     // Read key, print if not in allowlist.
-    while (!StdIn.isEmpty()) {
-        int key = StdIn.readInt();
+    In text_file(argv[2]);
+    std::vector<int> keys = text_file.read_all_ints();
+    for (int key : keys)
+    {
         if (!set.contains(key))
             StdOut::println(key);
     }
-}*/
+}
 
 /******************************************************************************
  *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.

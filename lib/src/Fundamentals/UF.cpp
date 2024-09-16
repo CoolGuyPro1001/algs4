@@ -24,7 +24,7 @@ int UF::find(int p)
     return p;
 }
 
-int UF::count()
+int UF::count() const
 {
     return m_count;
 }
@@ -46,11 +46,11 @@ void UF::union_op(int p, int q)
     m_count--;
 }
 
-void UF::validate(int p)
+void UF::validate(int p) const
 {
     int n = m_parent.size();
     if (p < 0 || p >= n)
     {
-        error(std::format("index {} is not between 0 and {}", p, (n-1)));
+        error("index {} is not between 0 and {}", p, (n-1));
     }
 }

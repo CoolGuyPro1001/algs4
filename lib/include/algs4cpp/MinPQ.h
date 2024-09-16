@@ -1,18 +1,17 @@
-#ifndef MAXPQ_H
-#define MAXPQ_H
+#ifndef MINPQ_H
+#define MINPQ_H
 
 /******************************************************************************
- *  Compilation:  javac MaxPQ.java
- *  Execution:    java MaxPQ < input.txt
+ *  Compilation:  javac MinPQ.java
+ *  Execution:    java MinPQ < input.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/24pq/tinyPQ.txt
  *
- *  Generic max priority queue implementation with a binary heap.
- *  Can be used with a comparator instead of the natural order,
- *  but the generic Key type must still be Comparable.
+ *  Generic min priority queue implementation with a binary heap.
+ *  Can be used with a comparator instead of the natural order.
  *
- *  % java MaxPQ < tinyPQ.txt
- *  Q X P (6 left on pq)
+ *  % java MinPQ < tinyPQ.txt
+ *  E A E (6 left on pq)
  *
  *  We use a one-based array to simplify parent and child calculations.
  *
@@ -22,14 +21,14 @@
  ******************************************************************************/
 
 /**
- *  The {@code MaxPQ} class represents a priority queue of generic keys.
- *  It supports the usual <em>insert</em> and <em>delete-the-maximum</em>
- *  operations, along with methods for peeking at the maximum key,
+ *  The {@code MinPQ} class represents a priority queue of generic keys.
+ *  It supports the usual <em>insert</em> and <em>delete-the-minimum</em>
+ *  operations, along with methods for peeking at the minimum key,
  *  testing if the priority queue is empty, and iterating through
  *  the keys.
  *  <p>
  *  This implementation uses a <em>binary heap</em>.
- *  The <em>insert</em> and <em>delete-the-maximum</em> operations take
+ *  The <em>insert</em> and <em>delete-the-minimum</em> operations take
  *  &Theta;(log <em>n</em>) amortized time, where <em>n</em> is the number
  *  of elements in the priority queue. This is an amortized bound
  *  (and not a worst-case bound) because of array resizing operations.
@@ -47,9 +46,8 @@
  *
  *  @param <Key> the generic type of key on this priority queue
  */
-
 template <typename Key>
-class MaxPQ
+class MinPQ
 {
 public:
     /**
@@ -57,7 +55,7 @@ public:
      *
      * @param  init_capacity the initial capacity of this priority queue
      */
-    MaxPQ(int init_capacity)
+    MinPQ(int init_capacity)
     {
         m_pq = std::vector<ptr<Key>>(init_capacity + 1);
         m_n = 0;
@@ -67,7 +65,7 @@ public:
     /**
      * Initializes an empty priority queue.
      */
-    MaxPQ() : MaxPQ(1)
+    MinPQ() : MinPQ(1)
     {
     }
 
@@ -78,7 +76,7 @@ public:
      * @param  init_capacity the initial capacity of this priority queue
      * @param  cmp the order in which to compare the keys
      */
-    MaxPQ(int init_capacity, bool(*cmp)(Key*, Key*))
+    MinPQ(int init_capacity, bool (*cmp)(Key*, Key*))
     {
         m_cmp = cmp;
         m_pq = std::vector<ptr<Key>>(init_capacity + 1);
@@ -90,17 +88,18 @@ public:
      *
      * @param  cmp the order in which to compare the keys
      */
-    MaxPQ(bool(*cmp)(Key*, Key*)) : MaxPQ(1, cmp)
+    MinPQ(bool (*cmp)(Key*, Key*)) : MinPQ(1, cmp)
     {
     }
 
     /**
      * Initializes a priority queue from the array of keys.
+     * <p>
      * Takes time proportional to the number of keys, using sink-based heap construction.
      *
      * @param  keys the array of keys
      */
-    MaxPQ(std::vector<ptr<Key>> keys)
+    MinPQ(std::vector<ptr<Key>> keys)
     {
         m_n = keys.size();
         m_cmp = nullptr;
@@ -109,7 +108,7 @@ public:
 
         for (int k = m_n/2; k >= 1; k--)
             sink(k);
-        assert(is_max_heap());
+        assert(is_min_heap());
     }
 
     /**
@@ -117,7 +116,7 @@ public:
      * 
      * @param other the MaxPQ to copy from
      */
-    MaxPQ(const MaxPQ<Key>& other) : 
+    MinPQ(const MinPQ<Key>& other) : 
         m_n(other.m_n), m_cmp(other.m_cmp) 
     {
         m_pq = std::vector<ptr<Key>>();
@@ -129,7 +128,7 @@ public:
      * 
      * @param other the MaxPQ to assign from
      */
-    MaxPQ& operator=(const MaxPQ<Key>& other)
+    MinPQ& operator=(const MinPQ<Key>& other)
     {
         m_n = other.m_n;
         m_cmp = other.m_cmp;
@@ -160,21 +159,21 @@ public:
     }
 
     /**
-     * Returns a largest key on this priority queue.
+     * Returns a smallest key on this priority queue.
      *
-     * @return a largest key on this priority queue
+     * @return a smallest key on this priority queue
      * @throws NoSuchElementException if this priority queue is empty
      */
-    Key max() const
+    Key min() const
     {
         if (is_empty()) error("Priority queue underflow");
-        return *(m_pq[1]);
+        return m_pq[1];
     }
 
     /**
      * Adds a new key to this priority queue.
      *
-     * @param  x the new key to add to this priority queue
+     * @param  x the key to add to this priority queue
      */
     void insert(Key x)
     {
@@ -184,31 +183,31 @@ public:
         // add x, and percolate it up to maintain heap invariant
         m_pq[++m_n] = alloc<Key>(x);
         swim(m_n);
-        assert(is_max_heap());
+        assert(is_min_heap());
     }
 
     /**
-     * Removes and returns a largest key on this priority queue.
+     * Removes and returns a smallest key on this priority queue.
      *
-     * @return a largest key on this priority queue
+     * @return a smallest key on this priority queue
      * @throws NoSuchElementException if this priority queue is empty
      */
-    Key del_max()
+    Key del_min()
     {
         if (is_empty()) error("Priority queue underflow");
-        Key max = *(m_pq[1]);
+        Key min = *(m_pq[1]);
         exch(1, m_n--);
         sink(1);
         m_pq[m_n+1].reset();     // to avoid loitering and help with garbage collection
         if ((m_n > 0) && (m_n == (m_pq.size() - 1) / 4)) resize(m_pq.size() / 2);
-        assert(is_max_heap());
-        return max;
+        assert(is_min_heap());
+        return min;
     }
 
 private:
-    std::vector<ptr<Key>> m_pq; // store items at indices 1 to n
-    int m_n;                    // number of items on priority queue
-    bool(*m_cmp)(Key*, Key*);   // optional comparator
+    std::vector<ptr<Key>> m_pq;       // store items at indices 1 to n
+    int m_n;                     // number of items on priority queue
+    bool(*m_cmp)(Key*, Key*);      // optional comparator
 
     // resize the underlying array to have the given capacity
     void resize(int capacity)
@@ -217,13 +216,13 @@ private:
         m_pq.resize(capacity);
     }
 
-    /***************************************************************************
+   /***************************************************************************
     * Helper functions to restore the heap invariant.
     ***************************************************************************/
 
     void swim(int k)
     {
-        while (k > 1 && less(k/2, k))
+        while (k > 1 && greater(k/2, k))
         {
             exch(k/2, k);
             k = k/2;
@@ -235,22 +234,21 @@ private:
         while (2*k <= m_n)
         {
             int j = 2*k;
-            if (j < m_n && less(j, j+1)) j++;
-            if (!less(k, j)) break;
+            if (j < m_n && greater(j, j+1)) j++;
+            if (!greater(k, j)) break;
             exch(k, j);
             k = j;
         }
     }
 
-
-    /***************************************************************************
+   /***************************************************************************
     * Helper functions for compares and swaps.
     ***************************************************************************/
-    bool less(int i, int j) const
+    bool greater(int i, int j) const
     {
         if (m_cmp == nullptr)
         {
-            return *(m_pq[i]) < *(m_pq[j]);
+            return *(m_pq[i]) > *(m_pq[j]);
         }
         else
         {
@@ -263,8 +261,8 @@ private:
         std::swap(m_pq[i], m_pq[j]);
     }
 
-    // is pq[1..n] a max heap?
-    bool is_max_heap() const
+    // is pq[1..n] a min heap?
+    bool is_min_heap() const
     {
         for (int i = 1; i <= m_n; i++)
         {
@@ -275,19 +273,20 @@ private:
             if (m_pq[i] != nullptr) return false;
         }
         if (m_pq[0] != nullptr) return false;
-        return is_max_heap_ordered(1);
+        return is_min_heap_ordered(1);
     }
 
-    // is subtree of pq[1..n] rooted at k a max heap?
-    bool is_max_heap_ordered(int k) const
+    // is subtree of pq[1..n] rooted at k a min heap?
+    bool is_min_heap_ordered(int k) const
     {
         if (k > m_n) return true;
         int left = 2*k;
         int right = 2*k + 1;
-        if (left  <= m_n && less(k, left))  return false;
-        if (right <= m_n && less(k, right)) return false;
-        return is_max_heap_ordered(left) && is_max_heap_ordered(right);
+        if (left  <= m_n && greater(k, left))  return false;
+        if (right <= m_n && greater(k, right)) return false;
+        return is_min_heap_ordered(left) && is_min_heap_ordered(right);
     }
+
 
     /***************************************************************************
     * Iterator.
@@ -300,9 +299,9 @@ private:
         using pointer           = Key*;  // or also value_type*
         using reference         = Key&;  // or also value_type&
 
-        HeapIterator(MaxPQ<Key>& max_pq)
+        HeapIterator(MinPQ<Key>& min_pq)
         {
-            m_copy = max_pq;
+            m_copy = min_pq;
             m_ptr = m_copy.m_pq[1].get();
         }
 
@@ -315,7 +314,7 @@ private:
         HeapIterator& operator++()
         {
             if (m_copy.is_empty()) error("No such element");
-            m_copy.del_max();
+            m_copy.del_min();
 
             if (m_copy.is_empty())
                 m_ptr = nullptr;
@@ -345,43 +344,19 @@ private:
         
     private:
         pointer m_ptr;
-        MaxPQ<Key> m_copy;
+        MinPQ<Key> m_copy;
     };
-    
+
 public:
     HeapIterator begin()
     {
         return HeapIterator(*this);
     }
 
-    HeapIterator end() const
+    HeapIterator end()
     {
         return HeapIterator(nullptr);
     }
 };
-
-/******************************************************************************
- *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
- *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
- *
- *  algs4.jar is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  algs4.jar is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General License for more details.
- *
- *  You should have received a copy of the GNU General License
- *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
 
 #endif

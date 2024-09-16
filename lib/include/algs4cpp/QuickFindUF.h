@@ -81,7 +81,7 @@ public:
      *
      * @return the number of sets (between {@code 1} and {@code n})
      */
-    int count();
+    int count() const;
 
     /**
      * Returns the canonical element of the set containing element {@code p}.
@@ -90,7 +90,7 @@ public:
      * @return the canonical element of the set containing {@code p}
      * @throws IllegalArgumentException unless {@code 0 <= p < n}
      */
-    int find(int p);
+    int find(int p) const;
 
     /**
      * Merges the set containing element {@code p} with the set
@@ -108,7 +108,7 @@ private:
     int m_count;   // number of components
 
     // validate that p is a valid index
-    void validate(int p);
+    void validate(int p) const;
 };
 
 /******************************************************************************

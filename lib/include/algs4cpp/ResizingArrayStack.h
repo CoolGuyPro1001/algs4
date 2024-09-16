@@ -42,14 +42,33 @@ template <typename Item>
 class ResizingArrayStack
 {
 public:
-
     /**
      * Initializes an empty stack.
      */
     ResizingArrayStack()
     {
-        m_a = std::vector<std::unique_ptr<Item>>(INIT_CAPACITY);
+        m_a = std::vector<ptr<Item>>(INIT_CAPACITY);
         m_n = 0;
+    }
+
+    /**
+     * Copy Constructor
+     */
+    ResizingArrayStack(const ResizingArrayStack& other) : 
+        m_n(other.m_n)
+    {
+        m_a = std::vector<ptr<Item>>();
+        copy_ptrs<Item>(m_a, other.m_a);
+    }
+    
+    /**
+     * Assigment Operator 
+     */
+    ResizingArrayStack& operator=(const ResizingArrayStack& other)
+    {
+        m_n = other.m_n;
+        m_a = std::vector<ptr<Item>>();
+        copy_ptrs<Item>(m_a, other.m_a);
     }
 
     /**
@@ -76,22 +95,17 @@ public:
         assert(capacity >= m_n);
 
         // textbook implementation
-        std::vector<std::unique_ptr<Item>> copy = std::vector<std::unique_ptr<Item>>(capacity);
-        for (int i = 0; i < m_n; i++)
-        {
-           copy[i] = std::move(m_a[i]);
-        }
-        m_a = copy;
+        m_a.resize(capacity);
     }
 
     /**
      * Adds the item to this stack.
      * @param item the item to add
      */
-    void push(std::unique_ptr<Item> item)
+    void push(Item item)
     {
         if (m_n == m_a.size()) resize(2*m_a.size());    // double size of array if necessary
-        m_a[m_n++] = std::move(item);                   // add item
+        m_a[m_n++] = alloc<Item>(item);                 // add item
     }
 
     /**
@@ -99,11 +113,11 @@ public:
      * @return the item most recently added
      * @throws java.util.NoSuchElementException if this stack is empty
      */
-    std::unique_ptr<Item> pop()
+    Item pop()
     {
         if (is_empty()) error("Stack underflow");
-        std::unique_ptr<Node<Item>> item = std::move(m_a[m_n-1]);
-        //m_a[m_n-1] = null;                              // to avoid loitering
+        Item item = *(m_a[m_n-1].get());
+        m_a[m_n-1].reset();
         m_n--;
         // shrink size of array if necessary
         if (m_n > 0 && m_n == m_a.size()/4) resize(m_a.size()/2);
@@ -122,38 +136,22 @@ public:
         return *(m_a[m_n-1]);
     }
 
-    /**
-     * Returns an iterator to this stack that iterates through the items in LIFO order.
-     * @return an iterator to this stack that iterates through the items in LIFO order.
-     */
-    /*Iterator<Item> iterator() {
-        return new ReverseArrayIterator();
+    auto begin() const
+    {
+        return m_a.rbegin(); 
     }
 
-    // a array iterator, in reverse order
-    class ReverseArrayIterator implements Iterator<Item> {
-        private int i;
-
-        ReverseArrayIterator() {
-            i = m_n-1;
-        }
-
-        bool hasNext() {
-            return i >= 0;
-        }
-
-        Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
-            return m_a[i--];
-        }
-    }*/
+    auto end() const
+    {
+        return m_a.rend();
+    }
 
 private:
     // initial capacity of underlying resizing array
     static const int INIT_CAPACITY = 8;
 
-    std::vector<std::unique_ptr<Item>> m_a;     // array of items
-    int m_n;                                    // number of elements on stack
+    std::vector<ptr<Item>> m_a;     // array of items
+    int m_n;                        // number of elements on stack
 };
 
 /******************************************************************************

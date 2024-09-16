@@ -13,10 +13,10 @@ int Fundamentals_TestLinkedStack(int argc, char** argv)
     LinkedStack<std::string> stack = LinkedStack<std::string>();
     std::vector<std::string> items = tobe_file.read_all_strings();
 
-    for (auto item = items.begin(); item != items.end(); item++)
+    for (std::string item : items) 
     {
-        if (!(*item == "-"))
-            stack.push(*item);
+        if (!(item == "-"))
+            stack.push(item);
         else if (!stack.is_empty())
             StdOut::print(stack.pop() + " ");
     }

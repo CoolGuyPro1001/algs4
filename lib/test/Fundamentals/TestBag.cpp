@@ -13,15 +13,16 @@ int Fundamentals_TestBag(int argc, char** argv)
     In tobe_file("res/tobe.txt");
     std::vector<std::string> items = tobe_file.read_all_strings();
     
-    for (auto item = items.begin(); item != items.end(); item++)
+    for (std::string item : items)
     {
-        bag.add(*item);
+        bag.add(item);
     }
 
     StdOut::printf("size of bag = %d\n", bag.size());
-    // for (String s : bag) {
-    //     StdOut::println(s);
-    // }
+    for (std::string s : bag)
+    {
+        StdOut::println(s);
+    }
 
     return 0;
 }

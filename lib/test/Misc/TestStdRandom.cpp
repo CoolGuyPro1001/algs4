@@ -27,8 +27,8 @@ int Misc_TestStdRandom(int argc, char** argv)
         StdOut::printf("%1d ",   StdRandom::discrete(frequencies));
         StdOut::printf("%11d ",  StdRandom::uniform_long(100000000000L));
         StdRandom::shuffle(a);
-        for (auto it = a.begin(); it != a.end(); it++)
-            StdOut::print(*it);
+        for (std::string str : a)
+            StdOut::print(str);
         StdOut::println();
     }
 

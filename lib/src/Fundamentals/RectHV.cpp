@@ -11,19 +11,19 @@ RectHV::RectHV(double xmin, double ymin, double xmax, double ymax)
 
     if (m_xmin == nan || m_xmax == nan)
     {
-        error("x-coordinate is NaN: " + to_string());
+        error("x-coordinate is NaN: {}", to_string());
     }
     if (m_ymin == nan || m_ymax == nan)
     {
-        error("y-coordinate is NaN: " + to_string());
+        error("y-coordinate is NaN: {}",to_string());
     }
     if (m_xmax < m_xmin)
     {
-        error("xmax < xmin: " + to_string());
+        error("xmax < xmin: {}", to_string());
     }
     if (m_ymax < m_ymin)
     {
-        error("ymax < ymin: " + to_string());
+        error("ymax < ymin: {}", to_string());
     }
 }
 

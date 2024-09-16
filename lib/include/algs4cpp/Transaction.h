@@ -29,6 +29,11 @@ class Transaction
 public:
 
     /**
+     * Default Constructor
+     */
+    Transaction();
+
+    /**
      * Initializes a new transaction from the given arguments.
      *
      * @param  who the person involved in this transaction

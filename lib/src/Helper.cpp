@@ -1,9 +1,3 @@
-void error(std::string output_error)
-{
-    std::cerr << "Error: " << output_error << "\n";
-    exit(EXIT_FAILURE);
-}
-
 template <typename Key, typename Value>
 Key map_extended::floor_key(Key k, std::map<Key, Value> map)
 {

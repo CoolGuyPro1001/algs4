@@ -40,7 +40,7 @@ public:
      *
      * @return elapsed CPU time (in seconds) since the stopwatch was created
      */
-    double elapsed_time(); 
+    double elapsed_time() const; 
  
 private: 
     std::clock_t m_start;

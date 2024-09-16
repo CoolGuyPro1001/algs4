@@ -46,37 +46,37 @@ LinearRegression::LinearRegression(std::vector<double> x, std::vector<double> y)
     m_svar0 = svar/n + x_bar * x_bar * m_svar1;
 }
 
-double LinearRegression::intercept()
+double LinearRegression::intercept() const
 {
     return m_intercept;
 }
 
-double LinearRegression::slope()
+double LinearRegression::slope() const
 {
     return m_slope;
 }
 
-double LinearRegression::R2()
+double LinearRegression::R2() const
 {
     return m_r2;
 }
 
-double LinearRegression::intercept_stderr()
+double LinearRegression::intercept_stderr() const
 {
     return std::sqrt(m_svar0);
 }
 
-double LinearRegression::slope_stderr()
+double LinearRegression::slope_stderr() const
 {
     return std::sqrt(m_svar1);
 }
 
-double LinearRegression::predict(double x)
+double LinearRegression::predict(double x) const
 {
     return m_slope * x + m_intercept;
 }
 
-std::string LinearRegression::to_string()
+std::string LinearRegression::to_string() const
 {
     return std::format("{:.2f} n + {:.2f}  (R^2 = {:.3f})", slope(), intercept(), R2());
 }

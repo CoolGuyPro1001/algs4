@@ -54,7 +54,6 @@ public:
      */
     Stack()
     {
-        m_first = std::make_unique<Node<Item>>();
         m_first = nullptr;
         m_n = 0;
     }
@@ -86,8 +85,8 @@ public:
      */
     void push(Item item)
     {
-        std::unique_ptr<Node<Item>> old_first = std::move(m_first);
-        m_first = std::make_unique<Node<Item>>();
+        ptr<Node<Item>> old_first = std::move(m_first);
+        m_first = alloc<Node<Item>>();
         m_first->item = item;
         m_first->next = std::move(old_first);
         m_n++;
@@ -125,53 +124,29 @@ public:
      *
      * @return the sequence of items in this stack in LIFO order, separated by spaces
      */
-    //TODO
-    /*stdstring toString()
+    std::string to_string() const
     {
-        stdstring s;
+        std::string s;
         for (Item item : this)
         {
             s += item;
             s += ' ';
         }
         return s;
-    }*/
-
-    /**
-     * Returns an iterator to this stack that iterates through the items in LIFO order.
-     *
-     * @return an iterator to this stack that iterates through the items in LIFO order
-     */
-    //TODO
-    /*Iterator<Item> iterator() {
-        return new LinkedIterator(first);
     }
 
-    // the iterator
-    private class LinkedIterator implements Iterator<Item> {
-        private Node<Item> current;
+    LinkedIterator<Item> begin() const
+    {
+        return LinkedIterator<Item>(m_first.get());
+    }
 
-        LinkedIterator(Node<Item> first) {
-            current = first;
-        }
-
-        // is there a next item?
-        bool hasNext() {
-            return current != null;
-        }
-
-        // returns the next item
-        Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
-            Item item = current.item;
-            current = current.next;
-            return item;
-        }
-    }*/
-
+    LinkedIterator<Item> end() const
+    {
+        return LinkedIterator<Item>(nullptr);
+    }
     
 private:
-    std::unique_ptr<Node<Item>> m_first;     // top of stack
+    ptr<Node<Item>> m_first;     // top of stack
     int m_n;                // size of the stack
 };
 

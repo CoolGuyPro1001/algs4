@@ -56,7 +56,7 @@ public:
      *
      * @return elapsed CPU time (in seconds) since the stopwatch was created
      */
-    double elapsed_time();
+    double elapsed_time() const;
 
 private:
     std::chrono::high_resolution_clock::time_point m_start;

@@ -22,10 +22,10 @@ void bs_test(std::string allow_file_name, std::string text_file_name)
     // read integer key from standard input; print if not in allowlist
     In text_file(text_file_name);
     std::vector<int> keys = text_file.read_all_ints();
-    for (auto key = keys.begin(); key != keys.end(); key++)
+    for (int key : keys)
     {
-        if (BinarySearch::index_of(allow_list, *key) == -1)
-            StdOut::println(*key);
+        if (BinarySearch::index_of(allow_list, key) == -1)
+            StdOut::println(key);
     }   
 }
 

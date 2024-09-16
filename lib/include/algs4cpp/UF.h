@@ -107,7 +107,7 @@ public:
      *
      * @return the number of sets (between {@code 1} and {@code n})
      */
-    int count();
+    int count() const;
     
     /**
      * Merges the set containing element {@code p} with the set
@@ -126,7 +126,7 @@ private:
     int m_count;     // number of components
 
     // validate that p is a valid index
-    void validate(int p);
+    void validate(int p) const;
 };
 
 

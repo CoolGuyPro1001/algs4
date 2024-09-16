@@ -1,5 +1,11 @@
 #include "Transaction.h"
 
+Transaction::Transaction() :
+    m_amount(0), m_when(Date()), m_who("John Doe")
+{
+
+}
+
 Transaction::Transaction(std::string who, Date when, double amount)
 {
     double infinity = std::numeric_limits<double>::infinity();

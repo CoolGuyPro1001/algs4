@@ -34,7 +34,7 @@ public:
      * @param keys the array of integers
      * @throws IllegalArgumentException if the array contains duplicate integers
      */
-    StaticSETofInts(std::vector<int> keys);
+    StaticSETofInts(std::vector<int>& keys);
 
     /**
      * Is the key in this set of integers?

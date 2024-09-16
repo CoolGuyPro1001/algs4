@@ -74,7 +74,7 @@ public:
      *
      * @return {@code true} if this input stream exists; {@code false} otherwise
      */
-    bool exists();
+    bool exists() const;
 
    /**
      * Returns true if input stream is empty (except possibly whitespace).
@@ -84,7 +84,7 @@ public:
      * @return {@code true} if this input stream is empty (except possibly whitespace);
      *         {@code false} otherwise
      */
-    bool is_empty();
+    bool is_empty() const;
 
    /**
      * Reads and returns the next line in this input stream.
@@ -244,6 +244,7 @@ public:
 
 private:
     std::ifstream m_ifs;
+    std::string m_file_name;
 };
 
 /******************************************************************************

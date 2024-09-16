@@ -3,10 +3,11 @@
 In::In(std::string name)
 {
     if (name.length() == 0) error("The file needs a name bro.");
+    m_file_name = name;
 
     // first try to read file from local file system
-    m_ifs.open(name);
-    if (m_ifs.fail()) error("istream has failed");
+    m_ifs.open(m_file_name);
+    if (m_ifs.fail()) error("ifstream has failed. Can't open {}", m_file_name);
     if (!m_ifs.is_open()) error("file not open");
     return;
 
@@ -38,12 +39,12 @@ In::In(std::string name)
     }*/
 }
 
-bool In::exists()
+bool In::exists() const
 {
     return m_ifs.is_open();
 }
 
-bool In::is_empty()
+bool In::is_empty() const
 {
     return m_ifs.eof();
 }
@@ -52,14 +53,16 @@ std::string In::read_line()
 {
     std::string line;
     std::getline(m_ifs, line);
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading line from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading line from {}", 
+        m_file_name);
     return line;
 }
 
 char In::read_char()
 {
     char c = m_ifs.get();
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading char from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading char from {}", 
+        m_file_name);
     return c;
 }
 
@@ -77,8 +80,8 @@ std::string In::read_string()
 {
     std::string str;
     m_ifs >> str;
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading string from file. " \
-        "This error also occurs when reading bool");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading string from. {}" \
+        "This error also occurs when reading bool", m_file_name);
     return str;
 }
 
@@ -86,7 +89,8 @@ int In::read_int()
 {
     int i;
     m_ifs >> i;
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading int from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading int from file {}", 
+        m_file_name);
     return i;
 }
 
@@ -94,7 +98,8 @@ double In::read_double()
 {
     double d;
     m_ifs >> d;
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading double from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading double from file {}",
+        m_file_name);
     return d;
 }
 
@@ -102,7 +107,8 @@ float In::read_float()
 {
     float f;
     m_ifs >> f;
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading float from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading float from file {}", 
+        m_file_name);
     return f;
 }
 
@@ -110,7 +116,8 @@ long In::read_long()
 {
     long l;
     m_ifs >> l;
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading long from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading long from file {}", 
+        m_file_name);
     return l;
 }
 
@@ -118,7 +125,8 @@ short In::read_short()
 {
     long s;
     m_ifs >> s;
-    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading short from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error("Error reading short from file {}", 
+        m_file_name);
     return s;
 }
 
@@ -126,7 +134,8 @@ uint8_t In::read_byte()
 {
     uint8_t b;
     m_ifs >> b;
-    if (m_ifs.fail() && !m_ifs.eof()) error ("Error reading byte from file");
+    if (m_ifs.fail() && !m_ifs.eof()) error ("Error reading byte from file {}", 
+        m_file_name);
     return b;
 }
 
@@ -142,7 +151,8 @@ bool In::read_bool()
     if ("1" == token) return true;
     if ("0" == token) return false;
 
-    error("Error string read from file is not bool (true, false, 1, 0)");
+    error("Error bool from {}. Valid strings are: true, false, 1, 0",
+        m_file_name);
     return false;
 }
 
@@ -151,10 +161,10 @@ std::vector<std::string> In::read_all_strings()
     std::vector<std::string> tokens;
     tokens.reserve(100);
 
-    while (m_ifs.good())
+    for (;;)
     {
         std::string str = read_string();
-        if (str == "") continue;
+        if (m_ifs.fail()) break;
         tokens.push_back(str);
     }
     return tokens;
@@ -165,9 +175,11 @@ std::vector<std::string> In::read_all_lines()
     std::vector<std::string> lines; 
     lines.reserve(100);
 
-    while (m_ifs.good())
+    for (;;)
     {
-        lines.push_back(read_line());
+        std::string line = read_line();
+        if (m_ifs.fail()) break;
+        lines.push_back(line);
     }
     return lines;
 }
@@ -178,7 +190,7 @@ std::vector<int> In::read_all_ints()
     values.reserve(100);
 
     int value;
-    for(;;)
+    for (;;)
     {
         value = read_int();
         if (m_ifs.fail()) break;
@@ -193,7 +205,7 @@ std::vector<long> In::read_all_longs()
     values.reserve(100);
 
     long value;
-    for(;;)
+    for (;;)
     {
         value = read_long();
         if (m_ifs.fail()) break;
@@ -209,7 +221,7 @@ std::vector<double> In::read_all_doubles()
     values.reserve(100);
 
     double value;
-    for(;;)
+    for (;;)
     {
         value = read_double();
         if (m_ifs.fail()) break;

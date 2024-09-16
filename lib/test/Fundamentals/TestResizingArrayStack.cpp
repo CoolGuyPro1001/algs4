@@ -1,5 +1,5 @@
 #include "ResizingArrayStack.h"
-#include "StdIn.h"
+#include "In.h"
 #include "StdOut.h"
 
 /**
@@ -7,14 +7,18 @@
  *
  * @param args the command-line arguments
  */
-int Fundamentals_TestResizingArrayStack()
+int Fundamentals_TestResizingArrayStack(int argc, char** argv)
 {
     ResizingArrayStack<std::string> stack = ResizingArrayStack<std::string>();
-    std::string item;
-    while (StdIn::scanf("{}\n", item))
+    In tobe_file("res/tobe.txt");
+    std::vector<std::string> items = tobe_file.read_all_strings();
+    
+    for (std::string item : items)
     {
         if (!(item == "-")) stack.push(item);
-        else if (!stack.is_empty()) StdOut::printf("%d ", stack.pop()); 
+        else if (!stack.is_empty()) StdOut::printf("%s ", stack.pop().c_str()); 
     }
-    StdOut::printf("(%d left on stack)", stack.size()); 
+    StdOut::printf("(%d left on stack)\n", stack.size()); 
+
+    return 0;
 }

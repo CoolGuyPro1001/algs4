@@ -73,7 +73,7 @@ public:
     {
         if (k < 0 || k >= a.size())
         {
-            error(std::format("index is not between 0 and {}: {}", a.size(), k));
+            error("index is not between 0 and {}: {}", a.size(), k);
         }
         StdRandom::shuffle(a);
         int lo = 0, hi = a.size() - 1;

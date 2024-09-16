@@ -47,7 +47,6 @@ public:
      */
     LinkedStack()
     {
-        m_first = std::make_unique<Node<Item>>();
         m_first = nullptr;
         m_n = 0;
         assert(check());
@@ -77,8 +76,8 @@ public:
      */
     void push(Item item)
     {
-        std::unique_ptr<Node<Item>> old_first = std::move(m_first);
-        m_first = std::make_unique<Node<Item>>();
+        ptr<Node<Item>> old_first = std::move(m_first);
+        m_first = alloc<Node<Item>>();
         m_first->item = item;
         m_first->next = std::move(old_first);
         m_n++;
@@ -100,7 +99,6 @@ public:
         return item;                   // return the saved item
     }
 
-
     /**
      * Returns (but does not remove) the item most recently added to this stack.
      * @return the item most recently added to this stack
@@ -116,45 +114,27 @@ public:
      * Returns a string representation of this stack.
      * @return the sequence of items in the stack in LIFO order, separated by spaces
      */
-    /*std::string to_string()
+    std::string to_string() const
     {
-        StringBuilder s = new StringBuilder();
-        for (Item item : this)
-            s.append(item + " ");
-        return s.toString();
-    }*/
+        std::string s;
+        for (Item item : *this)
+            s += std::format("{} ", item);
+        return s;
+    }
 
-    /**
-     * Returns an iterator to this stack that iterates through the items in LIFO order.
-     * @return an iterator to this stack that iterates through the items in LIFO order.
-     */
-    /*Iterator<Item> iterator()
+    LinkedIterator<Item> begin() const
     {
-        return new LinkedIterator();
-    }*/
+        return LinkedIterator<Item>(m_first.get());
+    }
 
-    // a linked-list iterator
-    /*class LinkedIterator implements Iterator<Item>
+    LinkedIterator<Item> end() const
     {
-        Node current = first;
+        return LinkedIterator<Item>(nullptr);
+    }
 
-        boolean hasNext()
-        {
-            return current != null;
-        }
-
-        Item next()
-        {
-            if (!hasNext()) throw new NoSuchElementException();
-            Item item = current.item;
-            current = current.next;
-            return item;
-        }
-    }*/
-
-
+private:
     // check internal invariants
-    bool check()
+    bool check() const
     {
 
         // check a few properties of instance variable 'first'
@@ -190,7 +170,7 @@ public:
 
 private:
     int m_n;          // size of the stack
-    std::unique_ptr<Node<Item>> m_first;     // top of stack
+    ptr<Node<Item>> m_first;     // top of stack
 };
 
 

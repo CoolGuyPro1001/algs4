@@ -10,12 +10,12 @@ QuickUnionUF::QuickUnionUF(int n)
     }
 }
 
-int QuickUnionUF::count()
+int QuickUnionUF::count() const
 {
     return m_count;
 }
 
-int QuickUnionUF::find(int p)
+int QuickUnionUF::find(int p) const
 {
     validate(p);
     while (p != m_parent[p])
@@ -33,11 +33,11 @@ void QuickUnionUF::union_op(int p, int q)
 }
 
 // validate that p is a valid index
-void QuickUnionUF::validate(int p)
+void QuickUnionUF::validate(int p) const
 {
     int n = m_parent.size();
     if (p < 0 || p >= n)
     {
-        error(std::format("index {} is not between 0 and {}", p, (n-1)));
+        error("index {} is not between 0 and {}", p, (n-1));
     }
 }

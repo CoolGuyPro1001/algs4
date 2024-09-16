@@ -10,6 +10,8 @@ Fundamentals/TestKnuth.cpp
 Fundamentals/TestLinkedStack.cpp
 Fundamentals/TestQuickFindUF.cpp
 Fundamentals/TestQuickUnionUF.cpp
+Fundamentals/TestResizingArrayStack.cpp
+Fundamentals/TestStack.cpp
 Fundamentals/TestStopwatch.cpp
 Fundamentals/TestStopwatchCPU.cpp
 Fundamentals/TestThreeSum.cpp
@@ -23,11 +25,16 @@ Misc/TestStdOut.cpp
 Misc/TestStdRandom.cpp
 Sorting/TestBinaryInsertion.cpp
 Sorting/TestHeap.cpp
+Sorting/TestIndexMaxPQ.cpp
+Sorting/TestIndexMinPQ.cpp
 Sorting/TestInsertion.cpp
 Sorting/TestInsertionX.cpp
+Sorting/TestInversions.cpp
+Sorting/TestMaxPQ.cpp
 Sorting/TestMerge.cpp
 Sorting/TestMergeBU.cpp
 Sorting/TestMergeX.cpp
+Sorting/TestMinPQ.cpp
 Sorting/TestQuick.cpp
 Sorting/TestQuick3way.cpp
 Sorting/TestQuickBentleyMcIlroy.cpp

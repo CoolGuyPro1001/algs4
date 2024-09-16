@@ -18,9 +18,9 @@ int Fundamentals_TestAccumulator(int argc, char** argv)
     In in("res/stats.txt");
     std::vector<double> all_data = in.read_all_doubles();
 
-    for (auto it = all_data.begin(); it != all_data.end(); it++)
+    for (double data : all_data)
     {
-        stats.add_data_value(*it);
+        stats.add_data_value(data);
     }
 
     /**

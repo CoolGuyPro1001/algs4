@@ -208,6 +208,19 @@
 
 namespace StdIn
 {
+    /**
+     * Returns true if standard input is empty (except possibly for whitespace).
+     * Use this method to know whether the next call to {@link #readString()},
+     * {@link #readDouble()}, etc. will succeed.
+     *
+     * To stop the standard input on terminal or command prompt, input Ctrl + D
+     * for Unix/Linux or Ctrl + Z for Windows.
+     * 
+     * @return {@code true} if standard input is empty (except possibly
+     *         for whitespace); {@code false} otherwise
+     */
+    bool is_empty();
+
    /**
      * Reads and returns the next line, excluding the line separator if present.
      *
