@@ -1,11 +1,22 @@
 ## Key
 * C - Completely implemented
+* R - Redundant
 * I - Incomplete or commented out code
 * M - Missing unit testing main 
 * B - Has bugs or vulnerability
 * N - Not implemented
 * W - Doesn't work in Windows
 * U - Doesn't work in Linux/Mac/Unix
+
+## Redudant Classes
+Some classes are not implemented due to having near identical code as other classes. 
+This is because of the differences between C++ and Java.
+Some features from the redudant class are moved into the other class.
+
+For example, in the original algs4 library the only difference between Bag and LinkedBag is
+Bag's Node class is static while LinkedBag's Node isn't. C++ doesn't have static classes,
+and creating a new Node struct with static data has no benefit.
+Only the Bag class is needed to represent a multiset implemented by a linked list. 
 
 ## List
 | Fundamentals | Status |
@@ -27,12 +38,13 @@
 | Interval2D | MI |
 | Accumulator | C |
 | ResizingArrayStack | C |
-| LinkedStack | I |
+| LinkedStack | R |
 | Stack | C |
-| LinkedQueue | N |
-| Queue | N |
-| ResizingArrayBag | N |
-| LinkedBag | N |
+| ResizingArrayQueue | C |
+| LinkedQueue | R |
+| Queue | C |
+| ResizingArrayBag | C |
+| LinkedBag | R |
 | Bag | C |
 | Stopwatch | C |
 | StopwatchCPU | W |

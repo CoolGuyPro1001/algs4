@@ -7,9 +7,11 @@ Fundamentals/TestDoublingRatio.cpp
 Fundamentals/TestDoublingTest.cpp
 Fundamentals/TestInterval1D.cpp
 Fundamentals/TestKnuth.cpp
-Fundamentals/TestLinkedStack.cpp
+Fundamentals/TestQueue.cpp
 Fundamentals/TestQuickFindUF.cpp
 Fundamentals/TestQuickUnionUF.cpp
+Fundamentals/TestResizingArrayBag.cpp
+Fundamentals/TestResizingArrayQueue.cpp
 Fundamentals/TestResizingArrayStack.cpp
 Fundamentals/TestStack.cpp
 Fundamentals/TestStopwatch.cpp

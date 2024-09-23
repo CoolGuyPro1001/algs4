@@ -15,12 +15,17 @@ Allman Style
 
 ## Classes, Structs, and Namespaces
 * Order: Public, protected, private
+* Only exceptions are begin() and end() when class has its own iterator in private.
 * If there is only static functions and no templates, use namespace
 * Use structs for common mathematical objects or data can be use as a property
 * For each access specifier group, put variables before functions
 
 ## Variable Naming
 * Prepend member variables with m_
+
+## Iterators
+* Use LinkedIterator to iterate through linked lists
+* Use std::vector begin() and end() if possible
 
 ## Conversions
 * Arrays -> std::vector
@@ -37,8 +42,8 @@ Allman Style
 * boolean -> bool
 * Remove final from fields and class declarations
 * Instead use const on functions that don't change member variables
-* equals() -> operator=() and operator!=()
-* compareTo() -> operator<(), operator>(), operator<=(), and operator>=()
+* equals() method implementation -> operator=() and operator!=()
+* compareTo() method implementation-> operator<(), operator>(), operator<=(), and operator>=()
 * Remove type checking
 * this.field -> m_field (This is the only Hungarian Notation)
 * this.function() -> function()
@@ -48,5 +53,5 @@ Allman Style
 * byte -> uint8_t
 
 ## Other
-* If possible use smart pointers
+* If possible use smart pointers (ptr<T>)
 * If possible use references

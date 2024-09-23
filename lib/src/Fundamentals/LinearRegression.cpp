@@ -80,3 +80,9 @@ std::string LinearRegression::to_string() const
 {
     return std::format("{:.2f} n + {:.2f}  (R^2 = {:.3f})", slope(), intercept(), R2());
 }
+
+std::ostream& operator<<(std::ostream& os, const LinearRegression& lr)
+{
+    os << lr.to_string();
+    return os;
+}

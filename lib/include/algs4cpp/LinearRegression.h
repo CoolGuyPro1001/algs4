@@ -92,6 +92,7 @@ public:
      *         <em>R</em><sup>2</sup>
      */
     std::string to_string() const;
+    friend std::ostream& operator<<(std::ostream& os, const LinearRegression& lr);
 
 private:
     double m_intercept, m_slope;

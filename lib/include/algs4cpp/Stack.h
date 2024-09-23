@@ -56,6 +56,7 @@ public:
     {
         m_first = nullptr;
         m_n = 0;
+        assert(check());
     }
     
     /**
@@ -90,6 +91,7 @@ public:
         m_first->item = item;
         m_first->next = std::move(old_first);
         m_n++;
+        assert(check());
     }
 
     /**
@@ -104,6 +106,7 @@ public:
         Item item = m_first->item;        // save item to return
         m_first = std::move(m_first->next);  // delete first node
         m_n--;
+        assert(check());
         return item;                   // return the saved item
     }
 
@@ -127,12 +130,15 @@ public:
     std::string to_string() const
     {
         std::string s;
-        for (Item item : this)
-        {
-            s += item;
-            s += ' ';
-        }
+        for (Item item : *this)
+            s += std::format("{} ", item);
         return s;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Stack& s)
+    {
+        os << s.to_string();
+        return os;
     }
 
     LinkedIterator<Item> begin() const
@@ -148,6 +154,41 @@ public:
 private:
     ptr<Node<Item>> m_first;     // top of stack
     int m_n;                // size of the stack
+
+    // check internal invariants
+    bool check() const
+    {
+
+        // check a few properties of instance variable 'first'
+        if (m_n < 0)
+        {
+            return false;
+        }
+        if (m_n == 0)
+        {
+            if (m_first != nullptr) return false;
+        }
+        else if (m_n == 1)
+        {
+            if (m_first == nullptr)      return false;
+            if (m_first->next != nullptr) return false;
+        }
+        else
+        {
+            if (m_first == nullptr)      return false;
+            if (m_first->next == nullptr) return false;
+        }
+
+        // check internal consistency of instance variable n
+        int number_of_nodes = 0;
+        for (Node<Item>* x = m_first.get(); x != nullptr && number_of_nodes <= m_n; x = x->next.get())
+        {
+            number_of_nodes++;
+        }
+        if (number_of_nodes != m_n) return false;
+
+        return true;
+    }
 };
 
 #endif

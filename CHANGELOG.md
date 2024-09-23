@@ -1,6 +1,14 @@
 # Change Log
 * Minor changes and bug fixes won't be listed here
 
+## Version 0.2.6
+* Removed Redundant Classes: LinkedStack, LinkedQueue, LinkedBag
+
+Completed:
+* ResizingArrayQueue
+* Queue
+* ResizingArrayBag
+
 ## Version 0.2.3
 * Iterators are here!
 * Completed all Sorting classes and programs
