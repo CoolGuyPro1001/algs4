@@ -25,6 +25,13 @@ Fundamentals/TestWeightedQuickUnionUF.cpp
 Misc/TestStdIn.cpp
 Misc/TestStdOut.cpp
 Misc/TestStdRandom.cpp
+Searching/TestBinarySearchST.cpp
+Searching/TestBST.cpp
+Searching/TestLinearProbing.cpp
+Searching/TestRedBlackBST.cpp
+Searching/TestSeperateChainingHashST.cpp
+Searching/TestSequentialSearchST.cpp
+Searching/TestST.cpp
 Sorting/TestBinaryInsertion.cpp
 Sorting/TestHeap.cpp
 Sorting/TestIndexMaxPQ.cpp

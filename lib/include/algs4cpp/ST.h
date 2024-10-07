@@ -12,7 +12,6 @@
  *
  ******************************************************************************/
 
-
 /**
  *  The {@code ST} class represents an ordered symbol table of generic
  *  key-value pairs.
@@ -25,8 +24,8 @@
  *  when associating a value with a key that is already in the symbol table,
  *  the convention is to replace the old value with the new value.
  *  Unlike {@link java.util.Map}, this class uses the convention that
- *  values cannot be {@code null}—setting the
- *  value associated with a key to {@code null} is equivalent to deleting the key
+ *  values cannot be {@code nullptr}—setting the
+ *  value associated with a key to {@code nullptr} is equivalent to deleting the key
  *  from the symbol table.
  *  <p>
  *  It requires that
@@ -70,15 +69,11 @@ public:
      *
      * @param  key the key
      * @return the value associated with the given key if the key is in this symbol table;
-     *         {@code null} if the key is not in this symbol table
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     *         {@code nullptr} if the key is not in this symbol table
+     * @throws IllegalArgumentException if {@code key} is {@code nullptr}
      */
     Value get(Key key) const
     {
-        if (key == nullptr)
-        {
-            //throw new IllegalArgumentException("calls get() with nullptr key");
-        }
         return m_st.at(key);
     }
 
@@ -86,24 +81,15 @@ public:
      * Inserts the specified key-value pair into the symbol table, overwriting the old
      * value with the new value if the symbol table already contains the specified key.
      * Deletes the specified key (and its associated value) from this symbol table
-     * if the specified value is {@code null}.
+     * if the specified value is {@code nullptr}.
      *
      * @param  key the key
      * @param  val the value
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code nullptr}
      */
     void put(Key key, Value val)
     {
-        //if (key == nullptr)
-            //throw new IllegalArgumentException("calls put() with nullptr key");
-        if (val == nullptr)
-        {
-            m_st.erase(key);
-        }
-        else
-        {
-            m_st.insert(std::pair<Key, Value>(key, val));
-        }
+        m_st.insert(std::pair<Key, Value>(key, val));
     }
 
     /**
@@ -111,7 +97,7 @@ public:
      * (if the key is in this symbol table).
      * 
      * @param  key the key
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code nullptr}
      */
     void remove(Key key)
     {
@@ -125,7 +111,7 @@ public:
      * @param  key the key
      * @return {@code true} if this symbol table contains {@code key} and
      *         {@code false} otherwise
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code nullptr}
      */
     bool contains(Key key) const
     {
@@ -162,10 +148,17 @@ public:
      *
      * @return all keys in this symbol table in ascending order
      */
-    /*Iterable<Key> ST::keys()
+    std::vector<Key> keys()
     {
-        return st.keySet();
-    }*/
+        std::vector<Key> keys;
+        keys.reserve(m_st.size());
+
+        for (auto it = m_st.begin(); it != m_st.end(); it++)
+        {
+            keys.push_back(it->first);
+        }
+        return keys;
+    } 
 
     /**
      * Returns the smallest key in this symbol table.
@@ -197,7 +190,7 @@ public:
      * @param  key the key
      * @return the smallest key in this symbol table greater than or equal to {@code key}
      * @throws NoSuchElementException if there is no such key
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code nullptr}
      */
     Key ceiling(Key key) const
     {
@@ -213,7 +206,7 @@ public:
      * @param  key the key
      * @return the largest key in this symbol table less than or equal to {@code key}
      * @throws NoSuchElementException if there is no such key
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code nullptr}
      */
     Key floor(Key key) const
     {

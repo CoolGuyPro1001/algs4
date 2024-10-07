@@ -1,6 +1,16 @@
 # Change Log
 * Minor changes and bug fixes won't be listed here
 
+## Version 0.2.9
+Completed:
+* SequentialSearchST
+* BinarySearchST
+* BST
+* RedBlackBST
+* SeparateChainingHashST
+* LinearProbingHashST
+* ST
+
 ## Version 0.2.6
 * Removed Redundant Classes: LinkedStack, LinkedQueue, LinkedBag
 

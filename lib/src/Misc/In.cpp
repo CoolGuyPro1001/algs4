@@ -23,7 +23,7 @@ In::In(std::string name)
     if (url == null) {
         URI uri = new URI(name);
         if (uri.isAbsolute()) url = uri.toURL();
-        else throw new IllegalArgumentException("could not read: '" + name + "'");
+        else error("could not read: '" + name + "'");
         url = new URL(name);
     }
 

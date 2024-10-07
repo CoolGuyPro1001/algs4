@@ -26,6 +26,7 @@
 #include <thread>
 #include <fstream>
 #include <utility>
+#include <optional>
 
 //#include <wx/wx.h>
 
@@ -70,7 +71,7 @@ namespace map_extended
 constexpr double pi() { return std::atan(1)*4; }
 
 template <typename T>
-constexpr size_t size(T* array) { return sizeof(array) / sizeof(T);}
+constexpr size_t size(T* array) { return sizeof(array) / sizeof(T); }
 
 // helper linked list class
 template <typename Item>
@@ -78,6 +79,23 @@ struct Node
 {
     Item item;
     ptr<Node<Item>> next;
+};
+
+// for search trees
+template <typename Key, typename Value>
+struct TreeNode
+{
+    Key key;                                // sorted by key
+    Value val;                              // associated data
+    ptr<TreeNode<Key, Value>> left, right;  // left and right subtrees
+    int size;                               // number of nodes in subtree
+
+    TreeNode(Key key, Value val, int size)
+    {
+        this->key = key;
+        this->val = val;
+        this->size = size;
+    }
 };
 
 template <typename Item>
